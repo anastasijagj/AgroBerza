@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class User {
+public class MainUser {
     @Id
     private String username;
 
@@ -19,11 +19,11 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private userCategory userCategory;
 
-    public User (){
+    public MainUser(){
 
     };
 
-    public User(String username, String password, String name, String surname, userCategory userCategory) {
+    public MainUser(String username, String password, String name, String surname, userCategory userCategory) {
         this.username = username;
         this.password = password;
         this.name = name;

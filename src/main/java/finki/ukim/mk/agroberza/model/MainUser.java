@@ -3,6 +3,7 @@ package finki.ukim.mk.agroberza.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,6 +16,9 @@ public class MainUser {
     private String name;
 
     private String surname;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Order> orders;
 
     @Enumerated(value = EnumType.STRING)
     private userCategory userCategory;

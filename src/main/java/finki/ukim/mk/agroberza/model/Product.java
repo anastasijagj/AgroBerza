@@ -3,6 +3,7 @@ package finki.ukim.mk.agroberza.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,6 +17,9 @@ public class Product {
     private Double price;
 
     private Integer quantity;
+
+    @ManyToMany
+    private List<Order> orders;
 
     public Product(Long id, String name, Double price, Integer quantity) {
         this.id = id;

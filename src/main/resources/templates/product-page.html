@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<tr th:each="product : ${products}" class="product">
+    <td th:text="${product.getName()}"></td>
+    <td th:text="${product.getPrice()}"></td>
+    <td th:text="${product.getQuantity()}"></td>
+    <td class="text-right">
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <form th:action="@{'/adminPage/delete/{id}' (id=${product.getId()})}"
+                  th:method="POST">
+                <button type="submit"
+                        class="btn btn-sm btn-danger delete-product">
+                    <i class="fa fa-trash">Delete</i>
+                </button>
+            </form>
+        </th:block>
+    </td>
+</tr>
+
+</body>
+</html>

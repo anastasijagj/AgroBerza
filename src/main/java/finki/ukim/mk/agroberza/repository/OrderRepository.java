@@ -3,6 +3,7 @@ package finki.ukim.mk.agroberza.repository;
 import finki.ukim.mk.agroberza.model.MainUser;
 import finki.ukim.mk.agroberza.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

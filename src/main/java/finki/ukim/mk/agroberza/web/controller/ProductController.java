@@ -42,7 +42,7 @@ public class ProductController {
         if (this.productService.findById(id).isPresent()) {
             Product product = this.productService.findById(id).get();
             model.addAttribute("product", product);
-            return "product-page";
+            return "add-page";
         }
         return "error-page";
     }

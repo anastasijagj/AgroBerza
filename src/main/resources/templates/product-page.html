@@ -11,16 +11,39 @@
     <td th:text="${product.getQuantity()}"></td>
     <td class="text-right">
         <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-            <form th:action="@{'/adminPage/delete/{id}' (id=${product.getId()})}"
-                  th:method="POST">
+            <form th:action="@{'/products/delete/{id}' (id=${product.getId()})}"
+                  th:method="DELETE">
                 <button type="submit"
                         class="btn btn-sm btn-danger delete-product">
                     <i class="fa fa-trash">Delete</i>
                 </button>
             </form>
         </th:block>
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <a th:href="@{'/products/edit/{id}' (id=${product.getId()})}"
+               class="btn btn-sm btn-info edit-product">
+                <i class="fa fa-trash">Edit</i>
+            </a>
+        </th:block>
+        <form th:action="@{'/orders/add-product/{id}' (id=${product.getId()})}"
+              th:method="POST"
+              sec:authorize="isAuthenticated()">
+            <button type="submit"
+                    class="btn btn-sm btn-primary">
+                <i class="fa fa-trash">Add product to order</i>
+            </button>
+        </form>
     </td>
 </tr>
-
+<div class="col mb-3">
+    <div class="row">
+        <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">
+            <a href="/products/add" class="btn btn-block btn-dark add-product-btn">
+                Add new product
+            </a>
+        </div>
+    </div>
+</div>
+</div>
 </body>
 </html>

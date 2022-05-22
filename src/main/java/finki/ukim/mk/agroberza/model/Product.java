@@ -1,10 +1,10 @@
 package finki.ukim.mk.agroberza.model;
 
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.List;
-import lombok.Getter;
 
 @Data
 @Entity
@@ -29,5 +29,13 @@ public class Product {
         this.price = price;
         this.quantity = quantity;
     }
-    public Product (){};
+
+    public Product(String name, Double price, Integer quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Product() {
+    }
 }

@@ -17,7 +17,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public String allProductsPage(Model model) {
         List<Product> products = this.productService.findAll();
         model.addAttribute("products", products);
@@ -55,9 +55,9 @@ public class ProductController {
 
     @PostMapping("/add")
     public String saveProduct(@RequestParam(required = false) Long id, @RequestParam String name, @RequestParam Double price, @RequestParam Integer quantity) {
-        if(id != null){
+        if (id != null) {
             this.productService.edit(id, name, price, quantity);
-        }else{
+        } else {
             this.productService.add(name, price, quantity);
         }
         return "redirect:/products";

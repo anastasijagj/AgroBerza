@@ -17,7 +17,7 @@ public class MainUser {
 
     private String surname;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "user")
     private List<Order> orders;
 
     @Enumerated(value = EnumType.STRING)

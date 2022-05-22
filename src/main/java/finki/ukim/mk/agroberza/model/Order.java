@@ -16,16 +16,17 @@ public class Order {
 
     @ManyToOne
     // @JoinColumn(name = "user_id", nullable = false)
-    private MainUser owner;
+    private MainUser user;
 
     @ManyToMany
     private List<Product> products;
 
-    public Order() {}
+    public Order() {
+    }
 
-    public Order(String name, MainUser owner) {
+    public Order(String name, MainUser user) {
         this.name = name;
-        this.owner = owner;
+        this.user = user;
     }
 
 }

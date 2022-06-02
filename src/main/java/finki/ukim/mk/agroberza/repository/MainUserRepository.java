@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MainUserRepository extends JpaRepository<MainUser, Long> {
     Optional<MainUser> findMainUserByName(String name);
+    Optional<MainUser> findMainUserByUsername(String username);
 }

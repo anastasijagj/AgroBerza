@@ -1,7 +1,9 @@
 package finki.ukim.mk.agroberza.web.controller;
 
+import finki.ukim.mk.agroberza.model.MainUser;
 import finki.ukim.mk.agroberza.model.Product;
 import finki.ukim.mk.agroberza.service.ProductService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

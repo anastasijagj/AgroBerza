@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("narackas")
+@RequestMapping("orders")
 @AllArgsConstructor
 public class OrderController {
     private final ProductService productService;
     private final MainUserService mainUserService;
     private final OrderService orderService;
 
-    @GetMapping("/user")
+    @GetMapping("")
     private String getOrdersForUser(Model model) {
         MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long userId = currentUser.getId();

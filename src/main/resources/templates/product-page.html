@@ -25,7 +25,7 @@
                 <i class="fa fa-trash">Edit</i>
             </a>
         </th:block>
-        <form th:action="@{'/narackas/add-product/{productId}/{userId}' (productId=${product.getId()}, userId=${user.getId})}"
+        <form th:action="@{'/orders/add-product/{productId}/{userId}' (productId=${product.getId()}, userId=${user.getId})}"
               th:method="GET"
               sec:authorize="isAuthenticated()">
             <button type="submit"
@@ -40,6 +40,15 @@
         <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">
             <a href="/products/add" class="btn btn-block btn-dark add-product-btn">
                 Add new product
+            </a>
+        </div>
+    </div>
+</div>
+<div class="col mb-3">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <a href="/orders" class="btn btn-block btn-dark add-product-btn">
+                Go to orders
             </a>
         </div>
     </div>

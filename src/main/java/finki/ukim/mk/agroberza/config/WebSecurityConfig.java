@@ -1,6 +1,6 @@
 package finki.ukim.mk.agroberza.config;
 
-import finki.ukim.mk.agroberza.service.impl.MainUserService;
+import finki.ukim.mk.agroberza.service.impl.RegisterUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @AllArgsConstructor
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final MainUserService mainUserService;
+    private final RegisterUserService registerUserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -26,7 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .permitAll()
             .anyRequest()
             .authenticated().and()
-            .formLogin();
+            .formLogin()
+            .successForwardUrl("/products");
     }
 
     @Override
@@ -38,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(bCryptPasswordEncoder);
-        provider.setUserDetailsService(mainUserService);
+        provider.setUserDetailsService(registerUserService);
         return provider;
     }
 }

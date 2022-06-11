@@ -2,27 +2,37 @@ package finki.ukim.mk.agroberza.web.controller;
 
 import finki.ukim.mk.agroberza.model.MainUser;
 import finki.ukim.mk.agroberza.model.Product;
+import finki.ukim.mk.agroberza.service.MainUserService;
 import finki.ukim.mk.agroberza.service.ProductService;
-import org.springframework.security.core.userdetails.UserDetails;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/products")
+@AllArgsConstructor
 public class ProductController {
     private final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
+    private final MainUserService userService;
 
     @GetMapping
     public String allProductsPage(Model model) {
         List<Product> products = this.productService.findAll();
         model.addAttribute("products", products);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        MainUser currentUser = (MainUser) auth.getPrincipal();
+//        MainUser currentUser =
+//            this.userService.findUserByName(principal.getName()).orElseThrow(() -> new RuntimeException());
+        model.addAttribute("user", currentUser);
         return "product-page";
     }
 
@@ -56,11 +66,13 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String saveProduct(@RequestParam(required = false) Long id, @RequestParam String name, @RequestParam Double price, @RequestParam Integer quantity) {
+    public String saveProduct(@RequestParam(required = false) Long id, @RequestParam String name,
+                              @RequestParam Double price, @RequestParam Integer quantity) {
+        MainUser user = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (id != null) {
             this.productService.edit(id, name, price, quantity);
         } else {
-            this.productService.add(name, price, quantity);
+            this.productService.add(name, price, quantity, user.getId());
         }
         return "redirect:/products";
     }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<tr th:each="naracka : ${narackas}" class="product">
+    <td th:text="${naracka.getName()}"></td>
+    <td th:text="${naracka.getUser().getName()}"></td>
+<!--<tr th:each="product: ${naracka.getProducts()}">-->
+<!--    <td th:text="${product.getName()}"></td>-->
+<!--    <td th:text="${product.getQuantity()}"></td>-->
+<!--</tr>-->
+<td class="text-right">
+    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+        <form th:action="@{'/narackas/delete/{id}' (id=${naracka.getId()})}"
+              th:method="DELETE">
+            <button type="submit"
+                    class="btn btn-sm btn-danger delete-product">
+                <i class="fa fa-trash">Delete</i>
+            </button>
+        </form>
+    </th:block>
+</td>
+</tr>
+<div class="col mb-3">
+    <div class="row">
+        <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">
+            <a href="/products" class="btn btn-block btn-dark add-product-btn">
+                Return to products
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

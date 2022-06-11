@@ -1,32 +1,48 @@
 package finki.ukim.mk.agroberza.service.impl;
 
-import finki.ukim.mk.agroberza.model.MainUser;
-import finki.ukim.mk.agroberza.model.Order;
+import finki.ukim.mk.agroberza.model.Naracka;
+import finki.ukim.mk.agroberza.model.Product;
 import finki.ukim.mk.agroberza.repository.OrderRepository;
 import finki.ukim.mk.agroberza.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import finki.ukim.mk.agroberza.service.ProductService;
+import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
+@AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    @Autowired
     private OrderRepository orderRepository;
+    private ProductService productService;
 
     @Override
-    public List<Order> findAll() {
+    public List<Naracka> findAll() {
         return this.orderRepository.findAll();
     }
 
     @Override
-    public List<Order> findAllByUser(MainUser user) {
-        return this.orderRepository.findOrdersByUser(user);
+    public List<Naracka> findAllByOrderedByUserId(Long userId) {
+        return this.orderRepository.findNarackasByOrderedByUserId(userId);
     }
 
     @Override
-    public Optional<Order> findByName(String name) {
-        return this.orderRepository.findOrderByName(name);
+    public List<Naracka> findAllByOrderToUserId(Long userId) {
+        return this.orderRepository.findAllByOrderToUserId(userId);
+    }
+
+    @Override
+    public List<Naracka> findAllByProduct(Long id) {
+        Product product = this.productService.findById(id).orElseThrow(() -> new RuntimeException());
+        return this.orderRepository.findAllByProducts(product);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        this.orderRepository.deleteById(id);
+    }
+
+    @Override
+    public Naracka addOrder(Naracka naracka) {
+        return this.orderRepository.save(naracka);
     }
 }

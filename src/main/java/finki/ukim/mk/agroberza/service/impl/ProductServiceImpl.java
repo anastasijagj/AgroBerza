@@ -42,8 +42,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product add(String name, Double price, Integer quantity) {
-        Product product = new Product(name, price, quantity);
+    public Product add(String name, Double price, Integer quantity, Long ownerId) {
+        Product product = new Product(name, price, quantity, ownerId);
         return this.productRepository.save(product);
     }
 }

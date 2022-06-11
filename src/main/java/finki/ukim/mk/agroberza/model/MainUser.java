@@ -4,14 +4,12 @@ import finki.ukim.mk.agroberza.model.enums.AppUserRole;
 import finki.ukim.mk.agroberza.model.enums.UserCategory;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,7 +24,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-@Entity
+@Entity(name = "main_user")
 public class MainUser implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,9 +42,6 @@ public class MainUser implements UserDetails {
     private Boolean locked;
     private Boolean enabled;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders;
-
     @Enumerated(EnumType.STRING)
     private UserCategory userCategory;
 
@@ -58,9 +53,9 @@ public class MainUser implements UserDetails {
         this.userCategory = userCategory;
         this.enabled = true;
         this.locked = false;
-        if(userCategory.equals(UserCategory.MERCHANT)){
+        if (userCategory.equals(UserCategory.MERCHANT)) {
             this.appUserRole = AppUserRole.ADMIN;
-        }else{
+        } else {
             this.appUserRole = AppUserRole.USER;
         }
     }

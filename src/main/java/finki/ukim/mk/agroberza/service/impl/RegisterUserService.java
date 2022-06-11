@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class MainUserService implements UserDetailsService {
+public class RegisterUserService implements UserDetailsService {
     private final MainUserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 

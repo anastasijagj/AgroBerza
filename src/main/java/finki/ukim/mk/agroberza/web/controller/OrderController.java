@@ -12,8 +12,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -24,7 +26,7 @@ public class OrderController {
     private final MainUserService mainUserService;
     private final OrderService orderService;
 
-    @GetMapping("")
+    @GetMapping
     private String getOrdersForUser(Model model) {
         MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long userId = currentUser.getId();
@@ -32,6 +34,19 @@ public class OrderController {
 
         model.addAttribute("orders", narackaList);
         return "order-page";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteOrder(@PathVariable Long id) {
+        this.orderService.deleteById(id);
+        return "redirect:/orders";
+    }
+
+    @PostMapping("/delete/product/{productId}/{orderId}")
+    public String deleteProductFromOrder(@PathVariable Long productId, @PathVariable Long orderId) {
+        Naracka activeOrder = this.orderService.findById(orderId).orElseThrow(() -> new RuntimeException());
+        this.orderService.removeProductFromOrder(productId, orderId);
+        return "redirect:/orders";
     }
 
     @GetMapping("/add-product/{productId}/{userId}")

@@ -5,7 +5,9 @@ import finki.ukim.mk.agroberza.model.Product;
 import finki.ukim.mk.agroberza.repository.OrderRepository;
 import finki.ukim.mk.agroberza.service.OrderService;
 import finki.ukim.mk.agroberza.service.ProductService;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +41,27 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteById(Long id) {
         this.orderRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Naracka> findById(Long id) {
+        return this.orderRepository.findById(id);
+    }
+
+    @Override
+    public void removeProductFromOrder(Long productId, Long orderId) {
+        Naracka order = this.orderRepository.findById(orderId).orElseThrow(() -> new RuntimeException());
+        List<Product> products = order.getProducts();
+        List<Product> newProducts = new ArrayList<>();
+        for (Product p : products) {
+            if (!(p.getId().equals(productId))) {
+                newProducts.add(p);
+            }
+        }
+        order.removeAllProductsFromOrder();
+        order.addProductsToOrder(newProducts);
+        this.orderRepository.deleteById(orderId);
+        this.orderRepository.save(order);
     }
 
     @Override

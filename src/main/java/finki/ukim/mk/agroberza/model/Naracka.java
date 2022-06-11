@@ -38,6 +38,9 @@ public class Naracka implements Serializable {
             this.products.add(p);
         }
     }
+    public void removeAllProductsFromOrder(){
+        this.products.clear();
+    }
 
     public Naracka(Long orderedByUserId, Long orderToUserId) {
         this.orderedByUserId = orderedByUserId;

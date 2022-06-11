@@ -23,6 +23,15 @@
             <tr th:each="product: ${naracka?.getProducts()}">
                 <td th:text="${product.getName()}">name</td>
                 <td th:text="${product.getQuantity()}">quantity</td>
+                <th:block>
+                    <form th:action="@{'/orders/delete/product/{productId}/{orderId}' (productId=${product.getId()}, orderId=${naracka?.getId()})}"
+                          th:method="POST">
+                        <button type="submit"
+                                class="btn btn-sm btn-danger delete-product">
+                            <i class="fa fa-trash">Remove product from this order</i>
+                        </button>
+                    </form>
+                </th:block>
             </tr>
         </table>
     </tr>

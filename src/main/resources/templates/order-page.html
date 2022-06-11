@@ -5,24 +5,24 @@
     <title>Products</title>
 </head>
 <body>
-<tr th:each="naracka : ${narackas}" class="product">
-    <td th:text="${naracka.getName()}"></td>
-    <td th:text="${naracka.getUser().getName()}"></td>
-<!--<tr th:each="product: ${naracka.getProducts()}">-->
-<!--    <td th:text="${product.getName()}"></td>-->
-<!--    <td th:text="${product.getQuantity()}"></td>-->
-<!--</tr>-->
-<td class="text-right">
-    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-        <form th:action="@{'/narackas/delete/{id}' (id=${naracka.getId()})}"
-              th:method="DELETE">
-            <button type="submit"
-                    class="btn btn-sm btn-danger delete-product">
-                <i class="fa fa-trash">Delete</i>
-            </button>
-        </form>
-    </th:block>
-</td>
+<tr th:text="${korisnik.getName()}"></tr>
+<tr th:each="naracka : ${orders}" class="naracka">
+    <td th:text="${naracka.getId()}"></td>
+    <!--<tr th:each="product: ${naracka.products}">-->
+    <!--    <td th:text="${product.getName()}"></td>-->
+    <!--    <td th:text="${product.getQuantity()}"></td>-->
+    <!--</tr>-->
+    <td class="text-right">
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <form th:action="@{'/narackas/delete/{id}' (id=${naracka.getId()})}"
+                  th:method="DELETE">
+                <button type="submit"
+                        class="btn btn-sm btn-danger delete-product">
+                    <i class="fa fa-trash">Remove order</i>
+                </button>
+            </form>
+        </th:block>
+    </td>
 </tr>
 <div class="col mb-3">
     <div class="row">

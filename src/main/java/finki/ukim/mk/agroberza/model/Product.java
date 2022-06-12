@@ -1,18 +1,13 @@
 package finki.ukim.mk.agroberza.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity(name = "product")
@@ -31,7 +26,7 @@ public class Product implements Serializable {
 
     private Integer quantity;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products", cascade = CascadeType.ALL)
     private List<Naracka> narackas = new ArrayList<>();
 
     public Product(Long id, String name, Double price, Integer quantity) {

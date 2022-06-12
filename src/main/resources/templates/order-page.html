@@ -11,7 +11,7 @@
         <td class="text-right">
             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <form th:action="@{'/orders/delete/{id}' (id=${naracka?.getId()})}"
-                      th:method="DELETE">
+                      th:method="POST">
                     <button type="submit"
                             class="btn btn-sm btn-danger delete-product">
                         <i class="fa fa-trash">Remove order</i>

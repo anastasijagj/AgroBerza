@@ -36,7 +36,7 @@ public class OrderController {
         return "order-page";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteOrder(@PathVariable Long id) {
         this.orderService.deleteById(id);
         return "redirect:/orders";

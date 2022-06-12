@@ -36,7 +36,7 @@ public class ProductController {
         return "product-page";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         this.productService.deleteById(id);
         return "redirect:/products";

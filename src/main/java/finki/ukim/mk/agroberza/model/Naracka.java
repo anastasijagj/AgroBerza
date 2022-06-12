@@ -3,11 +3,8 @@ package finki.ukim.mk.agroberza.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +20,7 @@ public class Naracka implements Serializable {
     private Long orderedByUserId;
     private Long orderToUserId;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(name = "naracka_product",
 //        joinColumns = {@JoinColumn(name = "naracka_id")},
 //        inverseJoinColumns = {@JoinColumn(name = "product_id")})

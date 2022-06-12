@@ -6,17 +6,17 @@ import finki.ukim.mk.agroberza.model.Product;
 import finki.ukim.mk.agroberza.service.MainUserService;
 import finki.ukim.mk.agroberza.service.OrderService;
 import finki.ukim.mk.agroberza.service.ProductService;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("orders")
@@ -33,7 +33,7 @@ public class OrderController {
         List<Naracka> narackaList = this.orderService.findAllByOrderedByUserId(userId);
 
         model.addAttribute("orders", narackaList);
-        return "order-page";
+        return "orders-page";
     }
 
     @PostMapping("/delete/{id}")
@@ -69,7 +69,7 @@ public class OrderController {
         for (Naracka narackaInList : narackas) {
             //ako postoi veke naracka pomegju istiot owner i current user
             if (narackaInList.getOrderedByUserId().equals(naracka.getOrderedByUserId())
-                && narackaInList.getOrderToUserId().equals(naracka.getOrderToUserId())) {
+                    && narackaInList.getOrderToUserId().equals(naracka.getOrderToUserId())) {
                 //dodadi produkt na taa naracka
                 narackaInList.addProductsToOrder(naracka.getProducts());
                 narackas.remove(narackaInList);
@@ -88,6 +88,6 @@ public class OrderController {
         System.out.println("NARACKA:" + narackaList.size());
         model.addAttribute("orders", narackaList);
         model.addAttribute("korisnik", currentUser);
-        return "order-page";
+        return "orders-page";
     }
 }

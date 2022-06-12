@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="mystyle.css">
+    <meta charset="UTF-8">
+    <title>Orders</title>>
+</head>
+<body>
+<h1>AgroBerza</h1>
+<nav>
+    <a href="/products">Products</a>
+    <a href="/orders">Orders</a>
+    <a href="#">Profile</a>
+    <div class="animation start-home"></div>
+</nav>
+<div class="cards">
+    <div th:each="naracka : ${orders}" class="card">
+        <div class="container">
+            <h4 th:text="${naracka?.getId()}"><b></b></h4>
+            <table>
+                <tr th:each="product: ${naracka?.getProducts()}">
+                    <td th:text="${product.getName()}">name</td>
+                    <td th:text="${product.getQuantity()}">quantity</td>
+                    <th:block>
+                        <form th:action="@{'/orders/delete/product/{productId}/{orderId}' (productId=${product.getId()}, orderId=${naracka?.getId()})}"
+                              th:method="POST">
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger delete-product">
+                                <i class="fa fa-trash">Remove from order</i>
+                            </button>
+                        </form>
+                    </th:block>
+                </tr>
+            </table>
+            <div class="buttons">
+                <form th:action="@{'/orders/delete/{id}' (id=${naracka?.getId()})}"
+                      sec:authorize="hasRole('ROLE_ADMIN')"
+                      th:method="POST">
+                    <button type="submit"
+                            class="btn btn-sm btn-danger delete-product">
+                        <i class="fa fa-trash">Delete</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="container">
+        <div class="">
+            <a href="/products" class="btn btn-block btn-dark add-product-btn">
+                Go to products
+            </a>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html></title>
+</head>
+<body>
+</body>
+</html>

@@ -32,6 +32,7 @@ public class ProductController {
         MainUser currentUser = (MainUser) auth.getPrincipal();
 //        MainUser currentUser =
 //            this.userService.findUserByName(principal.getName()).orElseThrow(() -> new RuntimeException());
+        System.out.println("USER INFO: " + currentUser.getId());
         model.addAttribute("user", currentUser);
         return "product-page";
     }

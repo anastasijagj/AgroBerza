@@ -10,7 +10,7 @@
 <nav>
     <a href="/products">Products</a>
     <a href="/orders">Orders</a>
-    <a href="#">Profile</a>
+    <a href="/profile">Profile</a>
     <div class="animation start-home"></div>
 </nav>
 <div class="cards">
@@ -53,15 +53,6 @@
         <div class="" sec:authorize="hasRole('ROLE_ADMIN')">
             <a href="/products/add" class="btn btn-block btn-dark add-product-btn">
                 Add new product
-            </a>
-        </div>
-    </div>
-</div>
-<div class="card">
-    <div class="container">
-        <div class="">
-            <a href="/orders" class="btn btn-block btn-dark add-product-btn">
-                Go to orders
             </a>
         </div>
     </div>

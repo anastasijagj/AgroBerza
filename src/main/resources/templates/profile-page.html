@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{mystyle.css}">
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<h1>AgroBerza</h1>
+<nav>
+    <a href="/products">Products</a>
+    <a href="/orders">Orders</a>
+    <a href="/profile">Profile</a>
+    <div class="animation start-home"></div>
+</nav>
+<div class="cards">
+    <div class="card">
+        <div class="container">
+            <h4 th:text="${user?.getName()}"><b></b></h4>
+            <h3 th:text="${user?.getSurname()}"></h3>
+            <h3 th:text="${user?.getUsername()}"></h3>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

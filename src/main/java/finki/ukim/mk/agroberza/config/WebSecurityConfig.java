@@ -22,12 +22,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
             .authorizeRequests()
-            .antMatchers("/api/registration/**")
+            .antMatchers("/register","/registracija/**")
             .permitAll()
             .anyRequest()
             .authenticated().and()
-            .formLogin()
-            .successForwardUrl("/products");
+            .formLogin().loginPage("/login").permitAll()
+                .failureUrl("/login?error=BadCredentials")
+            .defaultSuccessUrl("/products",true).and()
+                .logout()
+                .logoutUrl("/logout")
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login");
+
     }
 
     @Override

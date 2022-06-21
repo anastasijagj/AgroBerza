@@ -12,7 +12,11 @@
     <a href="/orders">Orders</a>
     <a href="/profile">Profile</a>
     <div class="animation start-home"></div>
+
 </nav>
+
+
+
 <div class="cards">
     <div th:each="product : ${products}" class="card">
         <div class="container">
@@ -53,6 +57,14 @@
         <div class="" sec:authorize="hasRole('ROLE_ADMIN')">
             <a href="/products/add" class="btn btn-block btn-dark add-product-btn">
                 Add new product
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div >
+            <a href="/logout" class="btn btn-block ">
+                LogOut
             </a>
         </div>
     </div>

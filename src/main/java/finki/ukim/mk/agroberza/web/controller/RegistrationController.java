@@ -15,18 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 public class RegistrationController {
     private RegistrationService registrationService;
 
-
-    @GetMapping("/login")
-    public String login_page() {
-        return "login";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return "redirect:/login";
-    }
-
     @GetMapping("/register")
     public String register_page() {
         return "register";

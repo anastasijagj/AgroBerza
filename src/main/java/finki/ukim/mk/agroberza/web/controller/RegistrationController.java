@@ -25,8 +25,10 @@ public class RegistrationController {
     public String register(@RequestParam String name,
                            @RequestParam String username,
                            @RequestParam String password,
-                           @RequestParam String surname) {
-         this.registrationService.register(name,username,surname,password,UserCategory.MERCHANT);
+                           @RequestParam String surname,
+                           @RequestParam UserCategory userCategory) {
+       // System.out.println(userCategory.toString());
+         this.registrationService.register(name,username,surname,password,userCategory);
         return "redirect:/products";
     }
 }

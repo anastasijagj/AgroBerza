@@ -32,9 +32,14 @@
                     </th:block>
                 </tr>
             </table>
+            <div class="accepted">
+                <h5 th:if="${naracka?.getAccepted()}">This order has been accepted</h5>
+            </div>
+            <div class="rejected">
+                <h5 th:if="${naracka?.getRejected()}">This order has been rejected</h5>
+            </div>
             <div class="buttons">
                 <form th:action="@{'/orders/delete/{id}' (id=${naracka?.getId()})}"
-                      sec:authorize="hasRole('ROLE_ADMIN')"
                       th:method="POST">
                     <button type="submit"
                             class="btn btn-sm btn-danger delete-product">
@@ -42,7 +47,6 @@
                     </button>
                 </form>
                 <form th:action="@{'/orders/accept/{id}' (id=${naracka?.getId()})}"
-                      sec:authorize="hasRole('ROLE_ADMIN')"
                       th:method="POST">
                     <button type="submit"
                             class="btn btn-sm delete-product">
@@ -50,7 +54,6 @@
                     </button>
                 </form>
                 <form th:action="@{'/orders/decline/{id}' (id=${naracka?.getId()})}"
-                      sec:authorize="hasRole('ROLE_ADMIN')"
                       th:method="POST">
                     <button type="submit"
                             class="btn btn-sm delete-product">

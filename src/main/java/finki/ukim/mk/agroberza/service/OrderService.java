@@ -8,6 +8,7 @@ import javax.swing.text.html.Option;
 
 public interface OrderService {
     public List<Naracka> findAll();
+    public Naracka editOrderById(Long id, Naracka naracka);
 
     public List<Naracka> findAllByOrderedByUserId(Long userId);
 

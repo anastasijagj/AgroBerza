@@ -9,8 +9,16 @@ nav {
 }
 
 /*#697900  */
-/*#abc46e  #34495e*/
+/*#abc46e */
 /*#286100*/
+.rejected {
+    color: #e74c3c;
+}
+
+.accepted {
+    color: chartreuse;
+}
+
 a {
     line-height: 50px;
     height: 100%;

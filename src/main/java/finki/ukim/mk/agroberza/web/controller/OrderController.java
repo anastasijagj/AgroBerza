@@ -46,13 +46,17 @@ public class OrderController {
     public String acceptOrder(@PathVariable Long id) {
         Naracka order = this.orderService.findById(id).get();
         order.setAccepted(true);
+        order.setRejected(false);
+        this.orderService.editOrderById(id, order);
         return "redirect:/orders";
     }
 
     @PostMapping("/decline/{id}")
     public String declineOrder(@PathVariable Long id) {
         Naracka order = this.orderService.findById(id).get();
+        order.setRejected(true);
         order.setAccepted(false);
+        this.orderService.editOrderById(id, order);
         return "redirect:/orders";
     }
 

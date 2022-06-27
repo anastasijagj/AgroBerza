@@ -30,8 +30,9 @@ public class OrderController {
     private String getOrdersForUser(Model model) {
         MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long userId = currentUser.getId();
-        List<Naracka> narackaList = this.orderService.findAllByOrderedByUserId(userId);
-
+        List<Naracka> narackaList = new ArrayList<>();
+        narackaList.addAll(this.orderService.findAllByOrderedByUserId(userId));
+        narackaList.addAll(this.orderService.findAllByOrderToUserId(userId));
         model.addAttribute("orders", narackaList);
         return "orders-page";
     }
@@ -39,6 +40,24 @@ public class OrderController {
     @PostMapping("/delete/{id}")
     public String deleteOrder(@PathVariable Long id) {
         this.orderService.deleteById(id);
+        return "redirect:/orders";
+    }
+
+    @PostMapping("/accept/{id}")
+    public String acceptOrder(@PathVariable Long id) {
+        Naracka order = this.orderService.findById(id).get();
+        order.setAccepted(true);
+        order.setRejected(false);
+        this.orderService.editOrderById(id, order);
+        return "redirect:/orders";
+    }
+
+    @PostMapping("/decline/{id}")
+    public String declineOrder(@PathVariable Long id) {
+        Naracka order = this.orderService.findById(id).get();
+        order.setRejected(true);
+        order.setAccepted(false);
+        this.orderService.editOrderById(id, order);
         return "redirect:/orders";
     }
 

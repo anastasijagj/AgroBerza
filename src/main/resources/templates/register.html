@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="mystyle.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Register</title>
 </head>
 <body>
+<div class="cards">
+    <form th:method="POST" action="/register" class="card">
+        username:
+        <input type="text" name="username" class="container">
+        <br>
 
-<form th:method="POST" action="/register">
-  username:
-  <input type="text" name="username">
-  <br>
+        password:
+        <input type="text" name="password" class="container">
+        <br>
 
-  password:
-  <input type="text" name="password">
-  <br>
+        name:
+        <input type="text" name="name" class="container">
+        <br>
 
-  name:
-  <input type="text" name="name">
-  <br>
+        surname:
+        <input type="text" name="surname" class="container">
+        <br>
 
-  surname:
-  <input type="text" name="surname">
-  <br>
+        ROLE:
+        <select name="userCategory">
+            <option VALUE="MERCHANT"> MERCHANT</option>
+            <option VALUE="FARMER"> FARMER</option>
+        </select>
+        <br>
 
-  ROLE:
-  <select name="userCategory">
-    <option VALUE="MERCHANT"> MERCHANT</option>
-    <option VALUE="FARMER"> FARMER</option>
-  </select>
-  <br>
-
-  <button type="submit">Register</button>
-</form>
+        <button type="submit">Register</button>
+    </form>
+</div>
 
 </body>
 </html>

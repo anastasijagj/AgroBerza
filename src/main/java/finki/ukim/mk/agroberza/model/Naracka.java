@@ -1,13 +1,13 @@
 package finki.ukim.mk.agroberza.model;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.*;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity(name = "naracka")
@@ -19,6 +19,8 @@ public class Naracka implements Serializable {
     private Long id;
     private Long orderedByUserId;
     private Long orderToUserId;
+    private boolean accepted=false;
+    private boolean rejected= false;
 
     @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(name = "naracka_product",
@@ -35,13 +37,20 @@ public class Naracka implements Serializable {
             this.products.add(p);
         }
     }
-    public void removeAllProductsFromOrder(){
+
+    public void removeAllProductsFromOrder() {
         this.products.clear();
     }
 
     public Naracka(Long orderedByUserId, Long orderToUserId) {
         this.orderedByUserId = orderedByUserId;
         this.orderToUserId = orderToUserId;
+    }
+    public boolean getAccepted(){
+        return this.accepted;
+    }
+    public boolean getRejected(){
+        return this.rejected;
     }
 
 }

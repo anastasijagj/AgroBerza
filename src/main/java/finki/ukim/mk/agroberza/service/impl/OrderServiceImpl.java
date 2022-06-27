@@ -5,11 +5,12 @@ import finki.ukim.mk.agroberza.model.Product;
 import finki.ukim.mk.agroberza.repository.OrderRepository;
 import finki.ukim.mk.agroberza.service.OrderService;
 import finki.ukim.mk.agroberza.service.ProductService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +21,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Naracka> findAll() {
         return this.orderRepository.findAll();
+    }
+
+    @Override
+    public Naracka editOrderById(Long id, Naracka naracka) {
+        Naracka order = this.orderRepository.findById(id).get();
+        order = naracka;
+        this.orderRepository.save(order);
+        return order;
     }
 
     @Override

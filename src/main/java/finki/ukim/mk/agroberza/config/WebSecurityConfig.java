@@ -1,7 +1,7 @@
 package finki.ukim.mk.agroberza.config;
 
 import finki.ukim.mk.agroberza.service.impl.RegisterUserService;
-import lombok.AllArgsConstructor;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -12,11 +12,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-@AllArgsConstructor
+
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final RegisterUserService registerUserService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public WebSecurityConfig(RegisterUserService registerUserService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.registerUserService = registerUserService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

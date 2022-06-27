@@ -2,18 +2,23 @@ package finki.ukim.mk.agroberza.service.impl;
 
 import finki.ukim.mk.agroberza.model.MainUser;
 import finki.ukim.mk.agroberza.repository.MainUserRepository;
-import lombok.AllArgsConstructor;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
+
 @Service
 public class RegisterUserService implements UserDetailsService {
     private final MainUserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public RegisterUserService(MainUserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

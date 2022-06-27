@@ -1,18 +1,15 @@
 package finki.ukim.mk.agroberza.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @Entity(name = "naracka")
-@NoArgsConstructor
-@Getter
+
 public class Naracka implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +33,57 @@ public class Naracka implements Serializable {
         for (Product p : products) {
             this.products.add(p);
         }
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setOrderedByUserId(Long orderedByUserId) {
+        this.orderedByUserId = orderedByUserId;
+    }
+
+    public void setOrderToUserId(Long orderToUserId) {
+        this.orderToUserId = orderToUserId;
+    }
+
+    public void setAccepted(boolean accepted) {
+        this.accepted = accepted;
+    }
+
+    public void setRejected(boolean rejected) {
+        this.rejected = rejected;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public Naracka() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getOrderedByUserId() {
+        return orderedByUserId;
+    }
+
+    public Long getOrderToUserId() {
+        return orderToUserId;
+    }
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public boolean isRejected() {
+        return rejected;
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 
     public void removeAllProductsFromOrder() {

@@ -3,7 +3,7 @@ package finki.ukim.mk.agroberza.web.controller;
 import finki.ukim.mk.agroberza.model.enums.UserCategory;
 import finki.ukim.mk.agroberza.service.MainUserService;
 import finki.ukim.mk.agroberza.service.impl.RegistrationService;
-import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@AllArgsConstructor
+
 public class RegistrationController {
     private RegistrationService registrationService;
     private MainUserService mainUserService;
+
+    public RegistrationController(RegistrationService registrationService, MainUserService mainUserService) {
+        this.registrationService = registrationService;
+        this.mainUserService = mainUserService;
+    }
 
     @GetMapping("/register")
     public String register_page(Model model) {

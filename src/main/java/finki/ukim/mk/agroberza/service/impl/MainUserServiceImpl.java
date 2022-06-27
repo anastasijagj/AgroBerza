@@ -5,16 +5,20 @@ import finki.ukim.mk.agroberza.repository.MainUserRepository;
 import finki.ukim.mk.agroberza.service.MainUserService;
 import java.util.List;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@AllArgsConstructor
+
 @Service
 public class MainUserServiceImpl implements MainUserService {
     MainUserRepository mainUserRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    public MainUserServiceImpl(MainUserRepository mainUserRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.mainUserRepository = mainUserRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
     public List<MainUser> findAll() {

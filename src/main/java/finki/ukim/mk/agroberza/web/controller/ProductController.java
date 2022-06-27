@@ -5,12 +5,11 @@ import finki.ukim.mk.agroberza.model.Product;
 import finki.ukim.mk.agroberza.service.MainUserService;
 import finki.ukim.mk.agroberza.service.ProductService;
 import java.util.List;
-import lombok.AllArgsConstructor;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/products")
-@AllArgsConstructor
+
 public class ProductController {
     private final ProductService productService;
     private final MainUserService userService;
+
+    public ProductController(ProductService productService, MainUserService userService) {
+        this.productService = productService;
+        this.userService = userService;
+    }
 
     @GetMapping
     public String allProductsPage(Model model) {

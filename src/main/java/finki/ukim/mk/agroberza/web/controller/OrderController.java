@@ -6,7 +6,6 @@ import finki.ukim.mk.agroberza.model.Product;
 import finki.ukim.mk.agroberza.service.MainUserService;
 import finki.ukim.mk.agroberza.service.OrderService;
 import finki.ukim.mk.agroberza.service.ProductService;
-import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +19,17 @@ import java.util.List;
 
 @Controller
 @RequestMapping("orders")
-@AllArgsConstructor
+
 public class OrderController {
     private final ProductService productService;
     private final MainUserService mainUserService;
     private final OrderService orderService;
+
+    public OrderController(ProductService productService, MainUserService mainUserService, OrderService orderService) {
+        this.productService = productService;
+        this.mainUserService = mainUserService;
+        this.orderService = orderService;
+    }
 
     @GetMapping
     private String getOrdersForUser(Model model) {

@@ -5,7 +5,7 @@ import finki.ukim.mk.agroberza.model.Product;
 import finki.ukim.mk.agroberza.repository.OrderRepository;
 import finki.ukim.mk.agroberza.service.OrderService;
 import finki.ukim.mk.agroberza.service.ProductService;
-import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,10 +13,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+
 public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
     private ProductService productService;
+
+    public OrderServiceImpl(OrderRepository orderRepository, ProductService productService) {
+        this.orderRepository = orderRepository;
+        this.productService = productService;
+    }
 
     @Override
     public List<Naracka> findAll() {

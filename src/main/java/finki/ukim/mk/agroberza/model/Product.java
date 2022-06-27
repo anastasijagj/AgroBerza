@@ -1,18 +1,15 @@
 package finki.ukim.mk.agroberza.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @Entity(name = "product")
-@NoArgsConstructor
-@Getter
+
 public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +38,56 @@ public class Product implements Serializable {
         this.price = price;
         this.quantity = quantity;
         this.ownerId = ownerId;
+    }
+
+    public Product() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public List<Naracka> getNarackas() {
+        return narackas;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setNarackas(List<Naracka> narackas) {
+        this.narackas = narackas;
     }
 }

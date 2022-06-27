@@ -42,6 +42,20 @@ public class OrderController {
         return "redirect:/orders";
     }
 
+    @PostMapping("/accept/{id}")
+    public String acceptOrder(@PathVariable Long id) {
+        Naracka order = this.orderService.findById(id).get();
+        order.setAccepted(true);
+        return "redirect:/orders";
+    }
+
+    @PostMapping("/decline/{id}")
+    public String declineOrder(@PathVariable Long id) {
+        Naracka order = this.orderService.findById(id).get();
+        order.setAccepted(false);
+        return "redirect:/orders";
+    }
+
     @PostMapping("/delete/product/{productId}/{orderId}")
     public String deleteProductFromOrder(@PathVariable Long productId, @PathVariable Long orderId) {
         Naracka activeOrder = this.orderService.findById(orderId).orElseThrow(() -> new RuntimeException());

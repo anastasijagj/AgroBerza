@@ -19,7 +19,7 @@ public class RegisterUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         return this.userRepository.findMainUserByUsername(username)
-            .orElseThrow(() -> new UsernameNotFoundException("user not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("user not found"));
     }
 
     public String signUpUser(MainUser user) {

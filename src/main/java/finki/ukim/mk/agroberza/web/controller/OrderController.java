@@ -30,8 +30,9 @@ public class OrderController {
     private String getOrdersForUser(Model model) {
         MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long userId = currentUser.getId();
-        List<Naracka> narackaList = this.orderService.findAllByOrderedByUserId(userId);
-
+        List<Naracka> narackaList = new ArrayList<>();
+        narackaList.addAll(this.orderService.findAllByOrderedByUserId(userId));
+        narackaList.addAll(this.orderService.findAllByOrderToUserId(userId));
         model.addAttribute("orders", narackaList);
         return "orders-page";
     }

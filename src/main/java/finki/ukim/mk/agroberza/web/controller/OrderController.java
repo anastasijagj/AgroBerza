@@ -34,7 +34,9 @@ public class OrderController {
         narackaList.addAll(this.orderService.findAllByOrderedByUserId(userId));
         narackaList.addAll(this.orderService.findAllByOrderToUserId(userId));
         model.addAttribute("orders", narackaList);
-        return "orders-page";
+        model.addAttribute("bodyContent","orders-page");
+        return "master-page";
+
     }
 
     @PostMapping("/delete/{id}")
@@ -107,6 +109,9 @@ public class OrderController {
         System.out.println("NARACKA:" + narackaList.size());
         model.addAttribute("orders", narackaList);
         model.addAttribute("korisnik", currentUser);
-        return "orders-page";
+
+        model.addAttribute("bodyContent","orders-page");
+        return "master-page";
+
     }
 }

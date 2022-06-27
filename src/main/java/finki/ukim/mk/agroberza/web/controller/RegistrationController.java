@@ -5,6 +5,7 @@ import finki.ukim.mk.agroberza.service.MainUserService;
 import finki.ukim.mk.agroberza.service.impl.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,8 +18,11 @@ public class RegistrationController {
     private MainUserService mainUserService;
 
     @GetMapping("/register")
-    public String register_page() {
-        return "register";
+    public String register_page(Model model) {
+
+
+        model.addAttribute("bodyContent","register");
+        return "master-page";
     }
 
 

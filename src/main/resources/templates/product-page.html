@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
-<head>
-    <link rel="stylesheet" href="mystyle.css">
-    <meta charset="UTF-8">
-    <title>Products</title>
-</head>
-<body>
-<h1>AgroBerza</h1>
-<nav>
-    <a href="/products">Products</a>
-    <a href="/orders">Orders</a>
-    <a href="/profile">Profile</a>
-    <div class="animation start-home"></div>
 
-</nav>
-<div class="cards">
+<section>
+<div>
     <div th:each="product : ${products}" class="card">
         <div class="container">
             <h4 th:text="${product.getName()}"><b></b></h4>
@@ -64,6 +50,4 @@
         </div>
     </div>
 </div>
-</div>
-</body>
-</html>
+</section>

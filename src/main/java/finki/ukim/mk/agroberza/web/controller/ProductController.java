@@ -34,7 +34,9 @@ public class ProductController {
 //            this.userService.findUserByName(principal.getName()).orElseThrow(() -> new RuntimeException());
         System.out.println("USER INFO: " + currentUser.getId());
         model.addAttribute("user", currentUser);
-        return "product-page";
+
+        model.addAttribute("bodyContent","product-page");
+        return "master-page";
     }
 
     @PostMapping("/delete/{id}")
@@ -55,15 +57,21 @@ public class ProductController {
         if (this.productService.findById(id).isPresent()) {
             Product product = this.productService.findById(id).get();
             model.addAttribute("product", product);
-            return "add-page";
+            model.addAttribute("bodyContent","add-page");
+            return "master-page";
+
+
         }
-        return "error-page";
+        model.addAttribute("bodyContent","error-page");
+        return "master-page";
+
     }
 
     @GetMapping("/add")
     public String addProduct(Model model) {
         model.addAttribute("bodyContent", "add-product");
-        return "add-page";
+        model.addAttribute("bodyContent","add-page");
+        return "master-page";
     }
 
     @PostMapping("/add")

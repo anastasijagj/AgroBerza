@@ -24,6 +24,8 @@ public class ProfileController {
         MainUser currentUser = (MainUser) auth.getPrincipal();
         MainUser user = this.userService.findById(currentUser.getId()).orElseThrow(() -> new RuntimeException());
         model.addAttribute("user", user);
-        return "profile-page";
+        model.addAttribute("bodyContent","profile-page");
+        return "master-page";
+
     }
 }

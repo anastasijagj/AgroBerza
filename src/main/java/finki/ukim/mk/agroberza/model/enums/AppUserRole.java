@@ -1,6 +1,13 @@
 package finki.ukim.mk.agroberza.model.enums;
 
-public enum AppUserRole {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum AppUserRole implements GrantedAuthority {
     USER,
-    ADMIN
+    ADMIN;
+
+    @Override
+    public String getAuthority() {
+        return name();
+    }
 }

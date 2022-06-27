@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="mystyle.css">
-    <meta charset="UTF-8">
-    <title>Orders</title>>
-</head>
-<body>
-<h1>AgroBerza</h1>
-<nav>
-    <a href="/products">Products</a>
-    <a href="/orders">Orders</a>
-    <a href="/profile">Profile</a>
-    <div class="animation start-home"></div>
-</nav>
+<section>
 <div class="cards">
     <div th:each="naracka : ${orders}" class="card">
         <div class="container">
@@ -55,7 +41,7 @@
                 </form>
                 <form th:action="@{'/orders/decline/{id}' (id=${naracka?.getId()})}"
                       th:method="POST">
-                    <button type="submit"
+                    <button  type="submit"
                             class="btn btn-sm delete-product">
                         <i class="fa fa-trash">Decline Order</i>
                     </button>
@@ -64,10 +50,4 @@
         </div>
     </div>
 </div>
-</div>
-</body>
-</html></title>
-</head>
-<body>
-</body>
-</html>
+</section>

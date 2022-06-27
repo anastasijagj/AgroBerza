@@ -1,39 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="mystyle.css">
-    <meta charset="UTF-8">
-    <title>Register</title>
-</head>
-<body>
-<div class="cards">
-    <form th:method="POST" action="/register" class="card">
-        username:
-        <input type="text" name="username" class="container">
-        <br>
 
-        password:
-        <input type="text" name="password" class="container">
-        <br>
+<section xmlns:th="http://www.w3.org/1999/xhtml" class="vh-100" >
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center  h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-5 text-center">
 
-        name:
-        <input type="text" name="name" class="container">
-        <br>
+                        <h3 class="mb-5">Sign up</h3>
 
-        surname:
-        <input type="text" name="surname" class="container">
-        <br>
+                        <form method="post" action="/register">
+                            <div class="form-outline mb-2">
+                                <input name="username" type="text" id="typeEmailX-2" class="form-control form-control-lg" />
+                                <label class="form-label" for="typeEmailX-2">Username </label>
+                            </div>
 
-        ROLE:
-        <select name="userCategory">
-            <option VALUE="MERCHANT"> MERCHANT</option>
-            <option VALUE="FARMER"> FARMER</option>
-        </select>
-        <br>
+                            <div class="form-outline mb-2">
+                                <input name="password" type="password" id="typePasswordX-2" class="form-control form-control-lg" />
+                                <label class="form-label" for="typePasswordX-2">Password</label>
+                            </div>
 
-        <button type="submit">Register</button>
-    </form>
-</div>
+                            <div class="form-outline mb-2">
+                                <input name="name" type="text" id="name" class="form-control form-control-lg" />
+                                <label class="form-label" for="name">Name</label>
+                            </div>
 
-</body>
-</html>
+                            <div class="form-outline mb-2">
+                                <input name="surname" type="password" id="surname"  class="form-control form-control-lg" />
+                                <label class="form-label" for="surname">Surname</label>
+                            </div>
+
+                            <div class="form-outline mb-2">
+                                <select  name="userCategory" class="selectpicker">
+                                    <option VALUE="MERCHANT"> MERCHANT</option>
+                                    <option VALUE="FARMER"> FARMER</option>
+                                </select>
+                            </div>
+
+
+
+                            <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
+
+
+
+
+                        </form>
+                        <hr class="my-4">
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

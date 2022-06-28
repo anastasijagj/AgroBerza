@@ -37,9 +37,22 @@ public class OrderController {
         Long userId = currentUser.getId();
         List<Naracka> narackaList = new ArrayList<>();
         narackaList.addAll(this.orderService.findAllByOrderedByUserId(userId));
+        model.addAttribute("orders", narackaList);
+        model.addAttribute("user", currentUser);
+        model.addAttribute("bodyContent","orders-page");
+        return "master-page";
+
+    }
+
+    @GetMapping("/naracki")
+    private String naracki(Model model) {
+        MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long userId = currentUser.getId();
+        List<Naracka> narackaList = new ArrayList<>();
         narackaList.addAll(this.orderService.findAllByOrderToUserId(userId));
         model.addAttribute("orders", narackaList);
-        model.addAttribute("bodyContent","orders-page");
+        model.addAttribute("user", currentUser);
+        model.addAttribute("bodyContent","naracki");
         return "master-page";
 
     }

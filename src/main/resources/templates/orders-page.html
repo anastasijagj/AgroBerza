@@ -1,3 +1,4 @@
+<!--
 <section>
 <div class="cards">
     <div th:each="naracka : ${orders}" class="card">
@@ -50,4 +51,66 @@
         </div>
     </div>
 </div>
+</section>-->
+
+<section class="h-100" style="background-color: #eee;">
+
+
+    <div class="container">
+        <div th:if="${user.getAppUserRole().name=='ADMIN'}" class="row">
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <a   href="/orders/naracki" class="btn btn-block btn-warning add-product-btn">
+                    Orders
+                </a>
+            </div>
+        </div>
+    <div class="container h-100 py-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-10">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="fw-normal mb-0 text-black">Cart</h3>
+                </div>
+
+                <div  th:each="naracka : ${orders}">
+                <div th:each="product: ${naracka?.getProducts()}" class="card rounded-3 mb-4">
+                    <div class="card-body p-4">
+                        <div class="row d-flex justify-content-between align-items-center">
+                            <div class="col-md-2 col-lg-2 col-xl-2">
+                                <img
+                                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
+                                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-3">
+                                <p th:text="${product.getName()}" class="lead fw-normal mb-2">Basic T-shirt</p>
+                                <p><span th:text="${ 'Size: ' +product.getQuantity()}" class="text-muted"> </span> <span class="text-muted"> </span></p>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+
+                                <h5 th:text="${product.getPrice() + ' ден.'}" class="mb-0">$499.00</h5>
+                            </div>
+                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                <form th:action="@{'/orders/delete/{id}' (id=${naracka?.getId()})}"
+                                      th:method="POST">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger delete-product">
+                                        <i class="fa fa-trash">Delete</i>
+                                    </button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </section>

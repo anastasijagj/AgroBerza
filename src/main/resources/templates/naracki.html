@@ -1,0 +1,114 @@
+<!--
+<section>
+<div class="cards">
+    <div th:each="naracka : ${orders}" class="card">
+        <div class="container">
+            <h4 th:text="${naracka?.getId()}"><b></b></h4>
+            <table>
+                <tr th:each="product: ${naracka?.getProducts()}">
+                    <td th:text="${product.getName()}">name</td>
+                    <td th:text="${product.getQuantity()}">quantity</td>
+                    <th:block>
+                        <form th:action="@{'/orders/delete/product/{productId}/{orderId}' (productId=${product.getId()}, orderId=${naracka?.getId()})}"
+                              th:method="POST">
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger delete-product">
+                                <i class="fa fa-trash">Remove from order</i>
+                            </button>
+                        </form>
+                    </th:block>
+                </tr>
+            </table>
+            <div class="accepted">
+                <h5 th:if="${naracka?.getAccepted()}">This order has been accepted</h5>
+            </div>
+            <div class="rejected">
+                <h5 th:if="${naracka?.getRejected()}">This order has been rejected</h5>
+            </div>
+            <div class="buttons">
+                <form th:action="@{'/orders/delete/{id}' (id=${naracka?.getId()})}"
+                      th:method="POST">
+                    <button type="submit"
+                            class="btn btn-sm btn-danger delete-product">
+                        <i class="fa fa-trash">Delete</i>
+                    </button>
+                </form>
+                <form th:action="@{'/orders/accept/{id}' (id=${naracka?.getId()})}"
+                      th:method="POST">
+                    <button type="submit"
+                            class="btn btn-sm delete-product">
+                        <i class="fa fa-trash">Accept Order</i>
+                    </button>
+                </form>
+                <form th:action="@{'/orders/decline/{id}' (id=${naracka?.getId()})}"
+                      th:method="POST">
+                    <button  type="submit"
+                            class="btn btn-sm delete-product">
+                        <i class="fa fa-trash">Decline Order</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</section>-->
+
+<section class="h-100" style="background-color: #eee;">
+
+
+  <div class="container">
+    <div class="container h-100 py-5">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-10">
+
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="fw-normal mb-0 text-black">Orders</h3>
+          </div>
+
+          <div  th:each="naracka : ${orders}">
+            <div th:each="product: ${naracka?.getProducts()}" class="card rounded-3 mb-4">
+              <div class="card-body p-4">
+                <div class="row d-flex justify-content-between align-items-center">
+                  <div class="col-md-2 col-lg-2 col-xl-2">
+                    <img
+                            src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
+                            class="img-fluid rounded-3" alt="Cotton T-shirt">
+                  </div>
+                  <div class="col-md-3 col-lg-3 col-xl-3">
+                    <p th:text="${product.getName()}" class="lead fw-normal mb-2">Basic T-shirt</p>
+                    <p><span th:text="${ 'Size: ' +product.getQuantity()}" class="text-muted"> </span> <span class="text-muted"> </span></p>
+                  </div>
+                  <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+
+                    <h5 th:text="${product.getPrice() + ' ден.'}" class="mb-0">$499.00</h5>
+                  </div>
+                  <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                    <form th:action="@{'/orders/accept/{id}' (id=${naracka?.getId()})}"
+                          th:method="POST">
+                      <button type="submit"
+                              class="btn btn-sm btn-success delete-product">
+                        <i class="fa fa-trash">Accept Order</i>
+                      </button>
+                    </form>
+                    <form th:action="@{'/orders/decline/{id}' (id=${naracka?.getId()})}"
+                          th:method="POST">
+                      <button  type="submit"
+                               class="btn btn-sm btn-danger delete-product">
+                        <i class="fa fa-trash">Decline Order</i>
+                      </button>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  </div>
+</section>

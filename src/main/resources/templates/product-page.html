@@ -82,7 +82,7 @@
                             <form th:action="@{'/orders/add-product/{productId}/{userId}' (productId=${product.getId()}, userId=${user.getId})}"
                                   th:method="GET"
                                   sec:authorize="isAuthenticated()">
-                                <button type="submit"
+                                <button th:if="${product.getOwnerId()!=user.getId()}" type="submit"
                                         class="btn btn-sm btn-primary">
                                     <i class="fa fa-trash">Add to order</i>
                                 </button>

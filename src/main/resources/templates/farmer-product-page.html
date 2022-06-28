@@ -15,7 +15,8 @@
   </div>
   <br>
 
-  <div class="container">
+  <div class="container table-bordered">
+    <br>
 
     <div  class="row">
 
@@ -49,16 +50,7 @@
                   </button>
                 </form>
               </div>
-              <div class="col-7">
-                <form th:action="@{'/orders/add-product/{productId}/{userId}' (productId=${product.getId()}, userId=${user.getId})}"
-                      th:method="GET"
-                      sec:authorize="isAuthenticated()">
-                  <button type="submit"
-                          class="btn btn-sm btn-primary">
-                    <i class="fa fa-trash">Add to order</i>
-                  </button>
-                </form>
-              </div>
+
             </div></div>
 
 
@@ -69,7 +61,7 @@
     </div>
 
 
-
+    <br>
   </div>
 
   <br>

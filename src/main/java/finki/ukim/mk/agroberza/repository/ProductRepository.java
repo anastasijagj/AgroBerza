@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    Optional<Product> findProductByName(String name);
 
     void deleteById(Long id);
+
+    List<Product> findProductByName(String name);
 
     List<Product> findAllByOwnerId(Long ownerId);
 }

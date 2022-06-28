@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
         return this.productRepository.findById(id);
     }
 
-    public Optional<Product> findProductByName(String name) {
+    public List<Product> findProductByName(String name) {
         return this.productRepository.findProductByName(name);
     }
 

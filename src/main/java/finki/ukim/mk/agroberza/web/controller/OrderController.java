@@ -3,6 +3,7 @@ package finki.ukim.mk.agroberza.web.controller;
 import finki.ukim.mk.agroberza.model.MainUser;
 import finki.ukim.mk.agroberza.model.Naracka;
 import finki.ukim.mk.agroberza.model.Product;
+import finki.ukim.mk.agroberza.model.enums.Status;
 import finki.ukim.mk.agroberza.service.MainUserService;
 import finki.ukim.mk.agroberza.service.OrderService;
 import finki.ukim.mk.agroberza.service.ProductService;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("orders")
@@ -66,19 +69,17 @@ public class OrderController {
     @PostMapping("/accept/{id}")
     public String acceptOrder(@PathVariable Long id) {
         Naracka order = this.orderService.findById(id).get();
-        order.setAccepted(true);
-        order.setRejected(false);
+        order.setStatus(Status.TRUE);
         this.orderService.editOrderById(id, order);
-        return "redirect:/orders";
+        return "redirect:/orders/naracki";
     }
 
     @PostMapping("/decline/{id}")
     public String declineOrder(@PathVariable Long id) {
         Naracka order = this.orderService.findById(id).get();
-        order.setRejected(true);
-        order.setAccepted(false);
+        order.setStatus(Status.FALSE);
         this.orderService.editOrderById(id, order);
-        return "redirect:/orders";
+        return "redirect:/orders/naracki";
     }
 
     @PostMapping("/delete/product/{productId}/{orderId}")
@@ -90,46 +91,16 @@ public class OrderController {
 
     @GetMapping("/add-product/{productId}/{userId}")
     private String addProductToOrderForUser(@PathVariable Long productId, @PathVariable Long userId, Model model) {
-        //TODO: change exceptions to custom ones
-        //get all orders for the current user
-        List<Naracka> narackas = this.orderService.findAllByOrderedByUserId(userId);
-        boolean productAdded = false;
-        if (narackas.isEmpty()) {
-            narackas = new ArrayList<>();
-        }
-        //get product that the user ordered
-        Product product = this.productService.findById(productId).orElseThrow(() -> new RuntimeException());
-        MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //create new order for this user
-        Naracka naracka = new Naracka(currentUser.getId(), product.getOwnerId());
-        naracka.addProductToOrder(product);
 
-        //pomini site naracki za current user
-        for (Naracka narackaInList : narackas) {
-            //ako postoi veke naracka pomegju istiot owner i current user
-            if (narackaInList.getOrderedByUserId().equals(naracka.getOrderedByUserId())
-                    && narackaInList.getOrderToUserId().equals(naracka.getOrderToUserId())) {
-                //dodadi produkt na taa naracka
-                narackaInList.addProductsToOrder(naracka.getProducts());
-                narackas.remove(narackaInList);
-                narackas.add(narackaInList);
-                productAdded = true;
-            }
-        }
-        //ako nema naracka pomegju current user i owner na toj produkt
-        if (!productAdded) {
-            //dodadi ja novata naracka
-            this.orderService.addOrder(naracka);
-        }
+        Product p=this.productService.findById(productId).orElseThrow(() -> new RuntimeException());;
 
-        //zemi gi site naracki za current user
-        List<Naracka> narackaList = this.orderService.findAllByOrderedByUserId(currentUser.getId());
-        System.out.println("NARACKA:" + narackaList.size());
-        model.addAttribute("orders", narackaList);
-        model.addAttribute("korisnik", currentUser);
 
-        model.addAttribute("bodyContent","orders-page");
-        return "master-page";
+        Naracka naracka= new Naracka(userId,p.getOwnerId());
+        naracka.addProductToOrder(p);
+
+        this.orderService.addOrder(naracka);
+
+        return "redirect:/orders";
 
     }
 }

@@ -2,6 +2,7 @@ package finki.ukim.mk.agroberza.service.impl;
 
 import finki.ukim.mk.agroberza.model.Naracka;
 import finki.ukim.mk.agroberza.model.Product;
+import finki.ukim.mk.agroberza.model.enums.Status;
 import finki.ukim.mk.agroberza.repository.OrderRepository;
 import finki.ukim.mk.agroberza.service.OrderService;
 import finki.ukim.mk.agroberza.service.ProductService;
@@ -80,6 +81,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Naracka addOrder(Naracka naracka) {
+        naracka.setStatus(Status.WAITING);
         return this.orderRepository.save(naracka);
     }
 }

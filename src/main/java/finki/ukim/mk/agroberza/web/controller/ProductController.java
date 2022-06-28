@@ -62,22 +62,7 @@ public class ProductController {
     }
 
 
-    @GetMapping("/search")
-    public String search(Model model,@RequestParam String search) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        MainUser currentUser = (MainUser) auth.getPrincipal();
-
-        List<Product> products = this.productService.findProductByName(search);
-        model.addAttribute("products", products);
-//        MainUser currentUser =
-//            this.userService.findUserByName(principal.getName()).orElseThrow(() -> new RuntimeException());
-        System.out.println("USER INFO: " + currentUser.getId());
-        model.addAttribute("user", currentUser);
-
-        model.addAttribute("bodyContent","product-page");
-        return "master-page";
-    }
 
     @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {

@@ -83,14 +83,19 @@
                     <h5 th:text="${product.getPrice() + ' ден.'}" class="mb-0">$499.00</h5>
                   </div>
                   <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                    <form th:action="@{'/orders/accept/{id}' (id=${naracka?.getId()})}"
+                    <span th:if="${naracka?.getStatus().name=='TRUE'}" style="color: green"> Accepted!</span>
+
+                    <span th:if="${naracka?.getStatus().name=='FALSE'}" style="color: red"> Declined!</span>
+
+
+                    <form th:if="${naracka?.getStatus().name=='WAITING'}" th:action="@{'/orders/accept/{id}' (id=${naracka?.getId()})}"
                           th:method="POST">
                       <button type="submit"
                               class="btn btn-sm btn-success delete-product">
                         <i class="fa fa-trash">Accept Order</i>
                       </button>
-                    </form>
-                    <form th:action="@{'/orders/decline/{id}' (id=${naracka?.getId()})}"
+                    </form >
+                    <form th:if="${naracka?.getStatus().name=='WAITING'}" th:action="@{'/orders/decline/{id}' (id=${naracka?.getId()})}"
                           th:method="POST">
                       <button  type="submit"
                                class="btn btn-sm btn-danger delete-product">

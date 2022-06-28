@@ -2,13 +2,16 @@ package finki.ukim.mk.agroberza.model;
 
 
 
+import finki.ukim.mk.agroberza.model.enums.AppUserRole;
+import finki.ukim.mk.agroberza.model.enums.Status;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Entity(name = "naracka")
+@Entity(name = "narackaa")
 
 public class Naracka implements Serializable {
     @Id
@@ -16,8 +19,9 @@ public class Naracka implements Serializable {
     private Long id;
     private Long orderedByUserId;
     private Long orderToUserId;
-    private boolean accepted=false;
-    private boolean rejected= false;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(name = "naracka_product",
@@ -47,12 +51,12 @@ public class Naracka implements Serializable {
         this.orderToUserId = orderToUserId;
     }
 
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setRejected(boolean rejected) {
-        this.rejected = rejected;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public void setProducts(List<Product> products) {
@@ -74,13 +78,7 @@ public class Naracka implements Serializable {
         return orderToUserId;
     }
 
-    public boolean isAccepted() {
-        return accepted;
-    }
 
-    public boolean isRejected() {
-        return rejected;
-    }
 
     public List<Product> getProducts() {
         return products;
@@ -94,11 +92,6 @@ public class Naracka implements Serializable {
         this.orderedByUserId = orderedByUserId;
         this.orderToUserId = orderToUserId;
     }
-    public boolean getAccepted(){
-        return this.accepted;
-    }
-    public boolean getRejected(){
-        return this.rejected;
-    }
+
 
 }

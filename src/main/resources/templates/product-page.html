@@ -4,7 +4,7 @@
     <div class="container-fluid ">
         <div class="row justify-content-center ">
             <div class="col-3">
-                <form method="get" action="products/search">
+                <form method="get" action="/search">
                 <div class="input-group">
                     <input type="search" name="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                     <button type="submit" class="btn btn-outline-primary">search</button>
@@ -79,10 +79,10 @@
                             </form>
                             </div>
                             <div class="col-7">
-                            <form th:action="@{'/orders/add-product/{productId}/{userId}' (productId=${product.getId()}, userId=${user.getId})}"
+                            <form  th:if="${product.getOwnerId()!=user.getId()}" th:action="@{'/orders/add-product/{productId}/{userId}' (productId=${product.getId()}, userId=${user.getId})}"
                                   th:method="GET"
                                   sec:authorize="isAuthenticated()">
-                                <button th:if="${product.getOwnerId()!=user.getId()}" type="submit"
+                                <button type="submit"
                                         class="btn btn-sm btn-primary">
                                     <i class="fa fa-trash">Add to order</i>
                                 </button>

@@ -57,13 +57,19 @@
 
 
     <div class="container">
-        <div th:if="${user.getAppUserRole().name=='ADMIN'}" class="row">
+        <div  class="row">
             <div class="col-4"></div>
             <div class="col-4"></div>
             <div class="col-4">
                 <a   href="/orders/naracki" class="btn btn-block btn-warning add-product-btn">
                     Orders
                 </a>
+                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+
+
+
+
+
             </div>
         </div>
     <div class="container h-100 py-5">
@@ -92,12 +98,16 @@
                                 <h5 th:text="${product.getPrice() + ' ден.'}" class="mb-0">$499.00</h5>
                             </div>
                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                <form th:action="@{'/orders/delete/{id}' (id=${naracka?.getId()})}"
+                                <span th:if="${naracka?.getStatus().name=='TRUE'}" style="color: green"> Accepted!</span>
+
+                                <span th:if="${naracka?.getStatus().name=='FALSE'}" style="color: red"> Declined!</span>
+                                <form th:if="${naracka?.getStatus().name=='WAITING'}" th:action="@{'/orders/delete/product/{productId}/{orderId}' (productId=${product.getId()}, orderId=${naracka?.getId()})}"
                                       th:method="POST">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-danger delete-product">
+                                    <button   type="submit"
+                                              class="btn btn-sm btn-danger delete-product">
                                         <i class="fa fa-trash">Delete</i>
                                     </button>
+                                    <span style="color: orange"> Waiting...</span>
                                 </form>
                             </div>
 

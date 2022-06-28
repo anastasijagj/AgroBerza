@@ -5,11 +5,19 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-12">
+
+            <div th:if="${user.getAppUserRole().name=='ADMIN'}" class="col-12">
+                <a  href="/products/farmer" class="btn btn-block btn-warning add-product-btn">
+                    My products
+                </a>
+            </div>
+            <div th:if="${user.getAppUserRole().name=='ADMIN'}" class="col-4">
                 <a  href="/products/add" class="btn btn-block btn-success add-product-btn">
                     Add new product
                 </a>
             </div>
+
+
         </div>
 
     </div>
@@ -32,18 +40,18 @@
                             <div class="col-3 ">
                                 <form th:action="@{'/products/delete/{id}' (id=${product.getId()})}"
                                       th:method="POST">
-                                    <button type="submit"
+                                    <button th:if="${product.getOwnerId()==user.getId()}" type="submit"
                                             class="btn btn-sm btn-danger delete-product">
                                         <i class="fa fa-trash">Delete</i>
                                     </button>
                                 </form>
 
 
-                        </div>
+                        </div >
                             <div class="col-2">
                             <form th:action="@{'/products/edit/{id}' (id=${product.getId()})}"
                                   th:method="GET">
-                                <button type="submit"
+                                <button th:if="${product.getOwnerId()==user.getId()}" type="submit"
                                         class="btn btn-sm btn-danger delete-product">
                                     <i class="fa fa-trash">Edit</i>
                                 </button>
@@ -63,6 +71,7 @@
 
 
                     </div>
+
                 </div>
 
             </div>

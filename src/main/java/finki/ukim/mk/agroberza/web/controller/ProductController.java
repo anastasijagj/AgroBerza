@@ -43,6 +43,23 @@ public class ProductController {
         return "master-page";
     }
 
+    @GetMapping("/farmer")
+    public String allFarmerProducts(Model model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        MainUser currentUser = (MainUser) auth.getPrincipal();
+
+        List<Product> products = this.productService.findAllByOwnerId(currentUser.getId());
+        model.addAttribute("products", products);
+//        MainUser currentUser =
+//            this.userService.findUserByName(principal.getName()).orElseThrow(() -> new RuntimeException());
+        System.out.println("USER INFO: " + currentUser.getId());
+        model.addAttribute("user", currentUser);
+
+        model.addAttribute("bodyContent","farmer-product-page");
+        return "master-page";
+    }
+
     @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         this.productService.deleteById(id);

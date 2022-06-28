@@ -7,6 +7,8 @@ import java.util.Optional;
 public interface ProductService {
     List<Product> findAll();
 
+    List<Product> findAllByOwnerId(Long id);
+
     Optional<Product> findById(Long id);
 
     Optional<Product> findProductByName(String name);

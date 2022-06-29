@@ -61,7 +61,7 @@
             <div class="col-4"></div>
             <div class="col-4"></div>
             <div class="col-4">
-                <a   href="/orders/naracki" class="btn btn-block btn-warning add-product-btn">
+                <a th:if="${user.getAppUserRole().name=='ADMIN'}"  href="/orders/naracki" class="btn btn-block btn-warning add-product-btn">
                     Orders
                 </a>
                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
@@ -91,14 +91,16 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-xl-3">
                                 <p th:text="${product.getName()}" class="lead fw-normal mb-2">Basic T-shirt</p>
-                                <p><span th:text="${ 'Size: ' +product.getQuantity()}" class="text-muted"> </span> <span class="text-muted"> </span></p>
+                                <p><span th:text="${ 'Available: ' +product.getQuantity()}" class="text-muted"> </span> <span class="text-muted"> </span></p>
                             </div>
                             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
 
                                 <h5 th:text="${product.getPrice() + ' ден.'}" class="mb-0">$499.00</h5>
                             </div>
                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                <span th:if="${naracka?.getStatus().name=='TRUE'}" style="color: green"> Accepted!</span>
+
+                                <span th:text="${'Ordered: ' + naracka.quantity}" >qqq</span>
+                                <span  th:if="${naracka?.getStatus().name=='TRUE'}" style="color: green"> Accepted!</span>
 
                                 <span th:if="${naracka?.getStatus().name=='FALSE'}" style="color: red"> Declined!</span>
                                 <form th:if="${naracka?.getStatus().name=='WAITING'}" th:action="@{'/orders/delete/product/{productId}/{orderId}' (productId=${product.getId()}, orderId=${naracka?.getId()})}"

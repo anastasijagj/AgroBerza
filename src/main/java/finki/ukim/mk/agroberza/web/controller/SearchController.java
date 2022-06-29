@@ -28,8 +28,7 @@ public class SearchController {
 
         List<Product> products = this.productService.findProductByName(search);
         model.addAttribute("products", products);
-//        MainUser currentUser =
-//            this.userService.findUserByName(principal.getName()).orElseThrow(() -> new RuntimeException());
+
         System.out.println("USER INFO: " + currentUser.getId());
         model.addAttribute("user", currentUser);
 

@@ -19,6 +19,7 @@ public class Naracka implements Serializable {
     private Long id;
     private Long orderedByUserId;
     private Long orderToUserId;
+    public Integer quantity;
 
     @Enumerated(EnumType.STRING)
     private Status status;

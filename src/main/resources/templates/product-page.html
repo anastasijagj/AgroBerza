@@ -54,14 +54,14 @@
                     <div class="card-body">
                         <h5 th:text="${product.getName()}" class="card-title"></h5>
                         <p  th:text="${product.getPrice()}" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <p  th:text="${product.getQuantity()}" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p  th:text="${ 'Available: ' + product.getQuantity()}" class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<hr>
 
-
-                        <div class="container "><div class="row">
-                            <div class="col-3 ">
+                        <div class="container "><div class="row justify-content-center">
+                            <div th:if="${product.getOwnerId()==user.getId()}" class="col-3 ">
                                 <form th:action="@{'/products/delete/{id}' (id=${product.getId()})}"
                                       th:method="POST">
-                                    <button th:if="${product.getOwnerId()==user.getId()}" type="submit"
+                                    <button  type="submit"
                                             class="btn btn-sm btn-danger delete-product">
                                         <i class="fa fa-trash">Delete</i>
                                     </button>
@@ -69,26 +69,47 @@
 
 
                         </div >
-                            <div class="col-2">
+                            <div th:if="${product.getOwnerId()==user.getId()}" class="col-2">
                             <form th:action="@{'/products/edit/{id}' (id=${product.getId()})}"
                                   th:method="GET">
-                                <button th:if="${product.getOwnerId()==user.getId()}" type="submit"
+                                <button  type="submit"
                                         class="btn btn-sm btn-danger delete-product">
                                     <i class="fa fa-trash">Edit</i>
                                 </button>
                             </form>
                             </div>
-                            <div class="col-7">
+
                             <form  th:if="${product.getOwnerId()!=user.getId()}" th:action="@{'/orders/add-product/{productId}/{userId}' (productId=${product.getId()}, userId=${user.getId})}"
-                                  th:method="GET"
-                                  sec:authorize="isAuthenticated()">
-                                <button type="submit"
-                                        class="btn btn-sm btn-primary">
-                                    <i class="fa fa-trash">Add to order</i>
-                                </button>
+                                   th:method="GET"
+                                   sec:authorize="isAuthenticated()">
+                             <div class="container">
+                                 <div class="row ">
+                                     <div  class="col-5">
+                                         <input style="text-align: center" name="kolicina" value="0" height="10px" class="form-control" id="ex1" type="text">
+                                     </div>
+                                     <div class="col-7">
+
+                                         <button type="submit"
+                                                 class="btn btn-sm btn-primary">
+                                             <i class="fa fa-trash">Add to order</i>
+                                         </button>
+
+                                     </div>
+
+                                 </div>
+
+                             </div>
                             </form>
-                            </div>
+                            <hr>
+
                         </div></div>
+<br>
+                        <hr>
+                        <div class="container bg-light">
+                            <div class="row justify-content-center">
+                            <a  class="btn btn-secondary" th:href="@{'/products/edit/{id}' (id=${product.getId()})}" role="button">More details...</a>
+                            </div>
+                        </div>
 
 
                     </div>

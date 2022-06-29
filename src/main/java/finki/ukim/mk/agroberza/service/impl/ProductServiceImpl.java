@@ -46,7 +46,6 @@ public class ProductServiceImpl implements ProductService {
         product.setName(name);
         product.setPrice(price);
         product.setQuantity(quantity);
-        this.productRepository.deleteById(id);
         return this.productRepository.save(product);
     }
 

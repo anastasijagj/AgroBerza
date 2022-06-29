@@ -10,13 +10,11 @@ import finki.ukim.mk.agroberza.service.ProductService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +37,9 @@ public class OrderController {
         MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long userId = currentUser.getId();
         List<Naracka> narackaList = new ArrayList<>();
+
         narackaList.addAll(this.orderService.findAllByOrderedByUserId(userId));
+        Collections.reverse(narackaList);
         model.addAttribute("orders", narackaList);
         model.addAttribute("user", currentUser);
         model.addAttribute("bodyContent","orders-page");
@@ -48,11 +48,19 @@ public class OrderController {
     }
 
     @GetMapping("/naracki")
-    private String naracki(Model model) {
+    private String naracki(Model model,@RequestParam(required = false) String error) {
+
+
+        if(error!=null)
+        {
+            model.addAttribute("error",true);
+        }
+
         MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long userId = currentUser.getId();
         List<Naracka> narackaList = new ArrayList<>();
         narackaList.addAll(this.orderService.findAllByOrderToUserId(userId));
+        Collections.reverse(narackaList);
         model.addAttribute("orders", narackaList);
         model.addAttribute("user", currentUser);
         model.addAttribute("bodyContent","naracki");
@@ -69,6 +77,16 @@ public class OrderController {
     @PostMapping("/accept/{id}")
     public String acceptOrder(@PathVariable Long id) {
         Naracka order = this.orderService.findById(id).get();
+        Product p=order.getProducts().get(0);
+
+        if((p.getQuantity()- order.quantity)<0)
+        {
+            order.setStatus(Status.FALSE);
+            this.orderService.editOrderById(id, order);
+            return "redirect:/orders/naracki?error=NO";
+        }
+
+        this.productService.edit(p.getId(),p.getName(), p.getPrice(), p.getQuantity()-order.quantity);
         order.setStatus(Status.TRUE);
         this.orderService.editOrderById(id, order);
         return "redirect:/orders/naracki";
@@ -77,6 +95,7 @@ public class OrderController {
     @PostMapping("/decline/{id}")
     public String declineOrder(@PathVariable Long id) {
         Naracka order = this.orderService.findById(id).get();
+
         order.setStatus(Status.FALSE);
         this.orderService.editOrderById(id, order);
         return "redirect:/orders/naracki";
@@ -90,12 +109,17 @@ public class OrderController {
     }
 
     @GetMapping("/add-product/{productId}/{userId}")
-    private String addProductToOrderForUser(@PathVariable Long productId, @PathVariable Long userId, Model model) {
+    private String addProductToOrderForUser(@PathVariable Long productId, @PathVariable Long userId, Model model, @RequestParam(required = false) Integer kolicina) {
+
 
         Product p=this.productService.findById(productId).orElseThrow(() -> new RuntimeException());;
 
-
         Naracka naracka= new Naracka(userId,p.getOwnerId());
+        if(kolicina==null)
+        {
+            kolicina=1;
+        }
+        naracka.quantity=kolicina;
         naracka.addProductToOrder(p);
 
         this.orderService.addOrder(naracka);

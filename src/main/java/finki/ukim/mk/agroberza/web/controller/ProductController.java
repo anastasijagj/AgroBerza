@@ -74,6 +74,8 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public String addProduct(@PathVariable Long id, Model model) {
+        MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", currentUser);
         Product product = this.productService.findById(id).get();
         model.addAttribute("product", product);
         return "add-product-page";
@@ -81,6 +83,8 @@ public class ProductController {
 
     @GetMapping("/edit/{id}")
     public String editProduct(@PathVariable Long id, Model model) {
+        MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", currentUser);
         if (this.productService.findById(id).isPresent()) {
             Product product = this.productService.findById(id).get();
             model.addAttribute("product", product);
@@ -96,6 +100,8 @@ public class ProductController {
 
     @GetMapping("/add")
     public String addProduct(Model model) {
+        MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", currentUser);
         model.addAttribute("bodyContent", "add-product");
         model.addAttribute("bodyContent","add-page");
         return "master-page";

@@ -61,9 +61,7 @@
             <div class="col-4"></div>
             <div class="col-4"></div>
             <div class="col-4">
-                <a th:if="${user.getAppUserRole().name=='ADMIN'}"  href="/orders/naracki" class="btn btn-block btn-warning add-product-btn">
-                    Orders
-                </a>
+
                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
 
 
@@ -91,7 +89,7 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-xl-3">
                                 <p th:text="${product.getName()}" class="lead fw-normal mb-2">Basic T-shirt</p>
-                                <p><span th:text="${ 'Available: ' +product.getQuantity()}" class="text-muted"> </span> <span class="text-muted"> </span></p>
+                                <p style="color: orangered"><span  th:text="${ 'Available: ' +product.getQuantity()}" class="text-muted"> </span> <span class="text-muted"> </span></p>
                             </div>
                             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
 

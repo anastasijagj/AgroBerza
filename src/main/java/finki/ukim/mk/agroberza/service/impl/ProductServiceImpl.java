@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public List<Product> findProductByName(String name) {
-        return this.productRepository.findProductByName(name);
+        return this.productRepository.findProductByNameContainingIgnoreCase(name);
     }
 
     @Override

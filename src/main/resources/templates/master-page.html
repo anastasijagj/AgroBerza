@@ -22,7 +22,9 @@
       <li><a href="/home" class="nav-link px-2 link-secondary">Home</a></li>
       <li><a href="/products" class="nav-link px-2 link-dark">Products</a></li>
       <li><a href="/orders" class="nav-link px-2 link-dark">Cart</a></li>
-
+      <li sec:authorize="isAuthenticated()" ><a th:if="${user.getAppUserRole().name=='ADMIN'}"  href="/orders/naracki" class="btn btn-block btn-warning add-product-btn">
+        Orders
+      </a></li>
     </ul>
 
     <div class="col-md-3 text-end">

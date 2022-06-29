@@ -35,13 +35,14 @@ public class OrderController {
     @GetMapping
     private String getOrdersForUser(Model model) {
         MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", currentUser);
         Long userId = currentUser.getId();
         List<Naracka> narackaList = new ArrayList<>();
 
         narackaList.addAll(this.orderService.findAllByOrderedByUserId(userId));
         Collections.reverse(narackaList);
         model.addAttribute("orders", narackaList);
-        model.addAttribute("user", currentUser);
+
         model.addAttribute("bodyContent","orders-page");
         return "master-page";
 

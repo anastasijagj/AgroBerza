@@ -14,6 +14,13 @@ public class HomeController {
     @GetMapping
     public String homePage(Model model)
     {
+
+       if(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString().equals("anonymousUser"))
+       {
+           model.addAttribute("bodyContent","home");
+           return "master-page";
+       }
+
         MainUser currentUser = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", currentUser);
         model.addAttribute("bodyContent","home");

@@ -18,6 +18,8 @@ public class Naracka implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long orderedByUserId;
+    public String orderedByUserName;
+    public String orderToUserName;
     private Long orderToUserId;
     public Integer quantity;
 

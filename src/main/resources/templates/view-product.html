@@ -1,0 +1,107 @@
+<section>
+<br>
+<br>
+<div   class="container">
+    <div  class="card">
+        <div  class="container-fliud">
+            <div   class="wrapper row">
+                <div  style="height: 500px;" class="col-md-6 border-right">
+
+                        <img th:src="${product.img}" height="100%" width="100%" src="https://www.lima-europe.eu/wp-content/uploads/2017/03/Potato.jpg" />
+                </div>
+
+                <div class="details col-md-6">
+                    <div style="height: 10px;" class="col-12">
+
+                    </div>
+                    <h3 th:text="${product.getName()}" style="text-align: center" class="product-title">Product1</h3>
+                    <hr>
+                    <p th:text="${product.description}" class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
+                    <hr>
+                    <h4  class="price">Price: <span th:text="${product.getPrice() + ' den.'}">2000den.</span></h4>
+                    <hr>
+
+                   <b> <h5 style="color: #e74c3c" class="quantity">Available:
+                        <span th:text="${product.getQuantity()}">200</span>
+                    </h5></b>
+                    <hr>
+                    <br>
+                    <div class="action">
+
+
+                        <div   class="container">
+                            <div class="row ">
+                                <div  class="col-5">
+
+                                    <form  th:if="${product.getOwnerId()!=user.getId()}" th:action="@{'/orders/add-product/{productId}/{userId}' (productId=${product.getId()}, userId=${user.getId})}"
+                                           th:method="GET"
+                                           sec:authorize="isAuthenticated()">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <input style="text-align: center" name="kolicina" value="0" height="5px" class="form-control" id="ex1" type="text">
+
+                                            </div>
+                                            <div class="col-8">
+                                                <button style="height: 39px" type="submit"
+                                                        class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-trash">Add to order</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    </form>
+
+                                </div>
+
+
+
+                                <div class="col-2">
+                                    <form th:if="${product.getOwnerId()==user.getId()}"  th:action="@{'/products/delete/{id}' (id=${product.getId()})}"
+                                          th:method="POST">
+                                        <button style="height: 39px"  type="submit"
+                                                 class="btn btn-sm btn-danger delete-product">
+                                            <i class="fa fa-trash">Delete</i>
+                                        </button>
+                                    </form>
+                                </div>
+
+
+                                <div   class="col-2">
+                                    <form th:if="${product.getOwnerId()==user.getId()}" th:action="@{'/products/edit/{id}' (id=${product.getId()})}"
+                                          th:method="GET">
+                                        <button style="height: 39px"  type="submit"
+                                                 class="btn btn-sm btn-danger delete-product">
+                                            <i class="fa fa-trash">Edit</i>
+                                        </button>
+                                    </form>
+
+                                </div>
+
+                                <div style="text-align: right" class="col-12">
+                                    <hr>
+                                    <span th:text="${owner.getName()+ ' ' + owner.getSurname()}">Posted by Someone</span>
+                                    <br>
+                                    <span>City: Skopje</span>
+                                    <br>
+                                    <span>Phone: 077-750-222</span>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+</div>                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <br>
+    <br>
+</section>

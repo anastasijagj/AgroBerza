@@ -41,17 +41,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product edit(Long id, String name, Double price, Integer quantity) {
-        Product product = this.productRepository.findById(id).get();
-        product.setName(name);
-        product.setPrice(price);
-        product.setQuantity(quantity);
+    public Product edit(Product p) {
+        Product product = this.productRepository.findById(p.getId()).get();
+        product.setName(p.getName());
+        product.setPrice(p.getPrice());
+        product.setQuantity(p.getQuantity());
+        product.setDescription(p.description);
+        product.setImg(p.getImg());
+        product.setOwnerId(p.getOwnerId());
         return this.productRepository.save(product);
     }
 
     @Override
-    public Product add(String name, Double price, Integer quantity, Long ownerId) {
-        Product product = new Product(name, price, quantity, ownerId);
+    public Product add(Product p) {
+        Product product = p;
         return this.productRepository.save(product);
     }
 }

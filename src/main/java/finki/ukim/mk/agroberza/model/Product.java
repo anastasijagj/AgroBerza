@@ -17,6 +17,10 @@ public class Product implements Serializable {
 
     private String name;
 
+    public String img;
+
+    public String description;
+
     private Long ownerId;
 
     private Double price;
@@ -31,6 +35,7 @@ public class Product implements Serializable {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+
     }
 
     public Product(String name, Double price, Integer quantity, Long ownerId) {
@@ -38,6 +43,22 @@ public class Product implements Serializable {
         this.price = price;
         this.quantity = quantity;
         this.ownerId = ownerId;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Product() {

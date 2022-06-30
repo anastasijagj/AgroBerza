@@ -62,6 +62,15 @@ public class OrderController {
         List<Naracka> narackaList = new ArrayList<>();
         narackaList.addAll(this.orderService.findAllByOrderToUserId(userId));
         Collections.reverse(narackaList);
+
+        ArrayList<String> users= new ArrayList<>();
+
+        for(int i=0;i<narackaList.size();i++)
+        {
+            narackaList.get(i).orderedByUserName=(mainUserService.findById(narackaList.get(i).getOrderedByUserId()).orElse(null).getName());
+        }
+
+
         model.addAttribute("orders", narackaList);
         model.addAttribute("user", currentUser);
         model.addAttribute("bodyContent","naracki");
@@ -86,8 +95,10 @@ public class OrderController {
             this.orderService.editOrderById(id, order);
             return "redirect:/orders/naracki?error=NO";
         }
-
-        this.productService.edit(p.getId(),p.getName(), p.getPrice(), p.getQuantity()-order.quantity);
+        Product product= new Product(p.getId(),p.getName(), p.getPrice(), p.getQuantity()-order.quantity);
+        product.img=p.getImg();
+        product.description=p.description;
+        this.productService.edit(product);
         order.setStatus(Status.TRUE);
         this.orderService.editOrderById(id, order);
         return "redirect:/orders/naracki";

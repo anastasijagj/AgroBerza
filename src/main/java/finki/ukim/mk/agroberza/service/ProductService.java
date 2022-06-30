@@ -15,7 +15,7 @@ public interface ProductService {
 
     void deleteById(Long id);
 
-    Product edit(Long id, String name, Double price, Integer quantity);
+    Product edit(Product p);
 
-    Product add(String name, Double price, Integer quantity, Long ownerId);
+    Product add(Product p);
 }

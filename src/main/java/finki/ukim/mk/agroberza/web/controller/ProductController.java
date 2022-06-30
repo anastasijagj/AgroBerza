@@ -63,6 +63,24 @@ public class ProductController {
         return "master-page";
     }
 
+    @GetMapping("/product/{id}")
+    public String productView (Model model,@PathVariable Long id)
+    {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        MainUser currentUser = (MainUser) auth.getPrincipal();
+        Product p=productService.findById(id).orElse(null);
+
+        MainUser owner=userService.findById(p.getOwnerId()).orElse(null);
+
+        model.addAttribute("owner",owner);
+        model.addAttribute("user",currentUser);
+        model.addAttribute("product",p);
+
+        model.addAttribute("bodyContent","view-product");
+        return "master-page";
+
+    }
+
 
 
 
@@ -109,12 +127,28 @@ public class ProductController {
 
     @PostMapping("/add")
     public String saveProduct(@RequestParam(required = false) Long id, @RequestParam String name,
-                              @RequestParam Double price, @RequestParam Integer quantity) {
+                              @RequestParam Double price, @RequestParam Integer quantity,@RequestParam String img,
+                              @RequestParam String description) {
         MainUser user = (MainUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (id != null) {
-            this.productService.edit(id, name, price, quantity);
+            Product p= new Product();
+            p.setId(id);
+            p.setName(name);
+            p.setPrice(price);
+            p.setQuantity(quantity);
+            p.setImg(img);
+            p.setDescription(description);
+            p.setOwnerId(user.getId());
+            this.productService.edit(p);
         } else {
-            this.productService.add(name, price, quantity, user.getId());
+            Product p= new Product();
+            p.setName(name);
+            p.setPrice(price);
+            p.setQuantity(quantity);
+            p.setImg(img);
+            p.setDescription(description);
+            p.setOwnerId(user.getId());
+            this.productService.add(p);
         }
         return "redirect:/products";
     }

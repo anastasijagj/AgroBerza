@@ -20,6 +20,12 @@ public class MainUser implements UserDetails {
 
     private String username;
 
+    public String number;
+
+    public String city;
+
+    public String email;
+
     private String password;
 
     private String name;

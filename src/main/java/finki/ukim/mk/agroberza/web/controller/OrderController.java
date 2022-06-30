@@ -41,6 +41,16 @@ public class OrderController {
 
         narackaList.addAll(this.orderService.findAllByOrderedByUserId(userId));
         Collections.reverse(narackaList);
+
+
+      /*  for(int i=0;i<narackaList.size();i++)
+        {
+            narackaList.get(i).brojO=mainUserService.findById(narackaList.get(i).getProducts().get(0).getOwnerId()).orElse(null).number;
+            narackaList.get(i).gradO=mainUserService.findById(narackaList.get(i).getProducts().get(0).getOwnerId()).orElse(null).city;
+            narackaList.get(i).orderToUserName=mainUserService.findById(narackaList.get(i).getProducts().get(0).getOwnerId()).orElse(null).getName();
+        }
+*/
+
         model.addAttribute("orders", narackaList);
 
         model.addAttribute("bodyContent","orders-page");
@@ -66,6 +76,9 @@ public class OrderController {
 
         for(int i=0;i<narackaList.size();i++)
         {
+            narackaList.get(i).broj=(mainUserService.findById(narackaList.get(i).getOrderedByUserId()).orElse(null).number);
+            narackaList.get(i).grad=(mainUserService.findById(narackaList.get(i).getOrderedByUserId()).orElse(null).city);
+
             narackaList.get(i).orderedByUserName=(mainUserService.findById(narackaList.get(i).getOrderedByUserId()).orElse(null).getName());
             narackaList.get(i).orderedByUserName+=" " +(mainUserService.findById(narackaList.get(i).getOrderedByUserId()).orElse(null).getSurname());
         }

@@ -38,12 +38,12 @@
                                            sec:authorize="isAuthenticated()">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-4">
-                                                <input style="text-align: center" name="kolicina" value="0" height="5px" class="form-control" id="ex1" type="text">
+                                            <div class="col-5">
+                                                <input style="text-align: center" name="kolicina" value="0" height="5px"  class="form-control" id="ex1" type="text">
 
                                             </div>
-                                            <div class="col-8">
-                                                <button style="height: 39px" type="submit"
+                                            <div class="col-7">
+                                                <button style="height: 50px; width: 100%" type="submit"
                                                         class="btn btn-sm btn-primary">
                                                     <i class="fa fa-trash">Add to order</i>
                                                 </button>
@@ -83,9 +83,9 @@
                                     <hr>
                                     <span th:text="${owner.getName()+ ' ' + owner.getSurname()}">Posted by Someone</span>
                                     <br>
-                                    <span>City: Skopje</span>
+                                    <span th:text="${ 'City: '+owner.city}">City: Skopje</span>
                                     <br>
-                                    <span>Phone: 077-750-222</span>
+                                    <span th:text="${ 'Phone: '+owner.number}">Phone: 077-750-222</span>
                             </div>
 
                         </div>

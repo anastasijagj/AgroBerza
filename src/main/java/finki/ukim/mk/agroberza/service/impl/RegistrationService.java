@@ -17,11 +17,15 @@ public class RegistrationService {
         this.registerUserService = registerUserService;
     }
 
-    public String register(String name,String username,String surname,String password,UserCategory userCategory) {
+    public String register(String name,String username,String surname,String password,UserCategory userCategory, String email, String city, String phone) {
 
-        return registerUserService.signUpUser(new MainUser(
-            username, password,
-            name, surname, userCategory
-        ));
+        MainUser user=new MainUser(
+                username, password,
+                name, surname, userCategory
+        );
+        user.city=city;
+        user.number=phone;
+        user.email=email;
+        return registerUserService.signUpUser(user);
     }
 }

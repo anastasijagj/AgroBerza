@@ -36,12 +36,15 @@ public class RegistrationController {
                            @RequestParam String username,
                            @RequestParam String password,
                            @RequestParam String surname,
+                           @RequestParam String email,
+                           @RequestParam String city,
+                           @RequestParam String phone,
                            @RequestParam UserCategory userCategory) {
         // System.out.println(userCategory.toString());
         if (this.mainUserService.findUserByName(username).isPresent()) {
             throw new RuntimeException();
         } else {
-            this.registrationService.register(name, username, surname, password, userCategory);
+            this.registrationService.register(name, username, surname, password, userCategory,email,city,phone);
             return "redirect:/products";
         }
     }

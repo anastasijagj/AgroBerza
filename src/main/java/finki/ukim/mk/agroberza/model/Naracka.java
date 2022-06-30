@@ -19,6 +19,11 @@ public class Naracka implements Serializable {
     private Long id;
     private Long orderedByUserId;
     public String orderedByUserName;
+    public String broj;
+    public String grad;
+
+    public String brojO;
+    public String gradO;
     public String orderToUserName;
     private Long orderToUserId;
     public Integer quantity;

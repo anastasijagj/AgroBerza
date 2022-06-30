@@ -1,6 +1,6 @@
 
 <section xmlns:th="http://www.w3.org/1999/xhtml" class="vh-100" >
-    <div class="container py-5 h-100">
+    <div class="container ">
         <div class="row d-flex justify-content-center  h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
@@ -30,6 +30,20 @@
                             </div>
 
                             <div class="form-outline mb-2">
+                                <input name="email" type="text" id="email"  class="form-control form-control-lg" />
+                                <label class="form-label" for="email">Email</label>
+                            </div>
+
+                            <div class="form-outline mb-2">
+                                <input name="city" type="text" id="city"  class="form-control form-control-lg" />
+                                <label class="form-label" for="city">City</label>
+                            </div>
+                            <div class="form-outline mb-2">
+                                <input name="phone" type="text" id="phone"  class="form-control form-control-lg" />
+                                <label class="form-label" for="city">Phone number</label>
+                            </div>
+
+                            <div class="form-outline mb-2">
                                 <select  name="userCategory" class="selectpicker">
                                     <option VALUE="MERCHANT"> MERCHANT</option>
                                     <option VALUE="FARMER"> FARMER</option>
@@ -53,5 +67,8 @@
                 </div>
             </div>
         </div>
+
     </div>
+
+
 </section>

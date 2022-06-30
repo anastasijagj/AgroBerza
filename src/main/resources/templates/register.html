@@ -9,6 +9,7 @@
                         <h3 class="mb-5">Sign up</h3>
 
                         <form method="post" action="/register">
+                                    <h5 th:if="${error!=null}"><h5 style="color: #e74c3c" th:text="${error}"> </h5></h5>
                             <div class="form-outline mb-2">
                                 <input name="username" type="text" id="typeEmailX-2" class="form-control form-control-lg" />
                                 <label class="form-label" for="typeEmailX-2">Username </label>

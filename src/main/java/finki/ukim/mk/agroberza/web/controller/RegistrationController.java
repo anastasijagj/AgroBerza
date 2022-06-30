@@ -23,8 +23,12 @@ public class RegistrationController {
     }
 
     @GetMapping("/register")
-    public String register_page(Model model) {
+    public String register_page(Model model,@RequestParam (required = false) String error) {
 
+        if(error!=null)
+        {
+            model.addAttribute("error",error);
+        }
 
         model.addAttribute("bodyContent","register");
         return "master-page";
@@ -42,7 +46,7 @@ public class RegistrationController {
                            @RequestParam UserCategory userCategory) {
         // System.out.println(userCategory.toString());
         if (this.mainUserService.findUserByName(username).isPresent()) {
-            throw new RuntimeException();
+            return "redirect:/register?error=The username already exists";
         } else {
             this.registrationService.register(name, username, surname, password, userCategory,email,city,phone);
             return "redirect:/products";

@@ -139,14 +139,40 @@ public class OrderController {
         Product p=this.productService.findById(productId).orElseThrow(() -> new RuntimeException());;
 
         Naracka naracka= new Naracka(userId,p.getOwnerId());
-        if(kolicina==null)
+        if(kolicina==0)
         {
             kolicina=1;
         }
         naracka.quantity=kolicina;
+        naracka.cena=naracka.quantity* p.getPrice();
         naracka.addProductToOrder(p);
 
         this.orderService.addOrder(naracka);
+
+        return "redirect:/orders";
+
+    }
+
+    @GetMapping("/edit/{productId}/{narackaId}")
+    private String editOrder(@PathVariable Long productId, @PathVariable Long narackaId, Model model, @RequestParam(required = false) Integer kolicina) {
+
+
+        Product p=this.productService.findById(productId).orElseThrow(() -> new RuntimeException());
+
+        Naracka naracka= orderService.findById(narackaId).orElse(null);
+
+        if(kolicina==0)
+        {
+            kolicina=1;
+        }
+
+        naracka.quantity=kolicina;
+        naracka.cena=kolicina * p.getPrice();
+        naracka.addProductToOrder(p);
+        naracka.products= new ArrayList<>();
+        naracka.products.add(p);
+
+        this.orderService.editOrderById(narackaId,naracka);
 
         return "redirect:/orders";
 

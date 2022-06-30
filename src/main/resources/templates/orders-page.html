@@ -55,6 +55,13 @@
 
 <section class="h-100" style="background-color: #eee;">
 
+    <script>
+        function func(id){
+            document.getElementById(id).style.display="none";
+            document.getElementById("zaEdit"+id).style.display="block";
+        }
+    </script>
+
 
     <div class="container">
         <div  class="row">
@@ -94,14 +101,35 @@
                             </div>
                             <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
 
-                                <h5 th:text="${product.getPrice() + ' ден.'}" class="mb-0">$499.00</h5>
+                                <h5 th:text="${naracka?.cena  + ' ден.'}" class="mb-0">$499.00</h5>
                             </div>
 
-                            <div class="col-md-4 col-lg-3 col-xl-3">
+                            <div class="col-md-4 col-lg-3 col-xl-3 justify-content-end">
 
-                                <p th:text="${naracka.orderedByUserName}" class="lead fw-normal mb-2">Nikola Mitreski</p>
-                                <p><span   th:text="${naracka.grad}" class="text-muted">City: Skopje </span> <span class="text-muted"> </span></p>
-                                <p><span  th:text="${naracka.broj}" class="text-muted">Phone: 075-852-987 </span> <span class="text-muted"> </span></p>
+                                <form  th:action="@{'/orders/edit/{productId}/{narackaId}' (productId=${product.getId()}, narackaId=${naracka?.getId})}"
+                                       th:method="GET"
+                                       sec:authorize="isAuthenticated()">
+                                <div style="display: none" th:id="${'zaEdit' + naracka?.getId()}" class="container">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <input style="text-align: center" name="kolicina" value="0" height="5px"  class="form-control" id="ex1" type="text">
+
+                                        </div>
+                                        <div class="col-7">
+                                            <button style="height: 50px; width: 100%" type="submit"
+                                                    class="btn btn-sm btn-primary">
+                                                <i class="fa fa-trash">Edit</i>
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </form>
+                                <button th:id="${naracka?.getId()}"  th:attr="onclick=|func('${naracka.getId()}')|"
+                                        class="btn btn-sm btn-info ">
+                                    <i class="fa fa-trash">Edit</i>
+                                </button>
 
                             </div>
                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
@@ -118,6 +146,8 @@
                                     </button>
                                     <span style="color: orange"> Waiting...</span>
                                 </form>
+
+
                             </div>
 
                         </div>

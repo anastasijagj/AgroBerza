@@ -27,6 +27,7 @@ public class Naracka implements Serializable {
     public String orderToUserName;
     private Long orderToUserId;
     public Integer quantity;
+    public Double cena;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -35,7 +36,7 @@ public class Naracka implements Serializable {
 //    @JoinTable(name = "naracka_product",
 //        joinColumns = {@JoinColumn(name = "naracka_id")},
 //        inverseJoinColumns = {@JoinColumn(name = "product_id")})
-    private List<Product> products = new ArrayList<>();
+    public List<Product> products = new ArrayList<>();
 
     public void addProductToOrder(Product product) {
         this.products.add(product);

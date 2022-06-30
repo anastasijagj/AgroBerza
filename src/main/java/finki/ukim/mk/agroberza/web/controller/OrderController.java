@@ -51,7 +51,6 @@ public class OrderController {
     @GetMapping("/naracki")
     private String naracki(Model model,@RequestParam(required = false) String error) {
 
-
         if(error!=null)
         {
             model.addAttribute("error",true);
@@ -68,8 +67,8 @@ public class OrderController {
         for(int i=0;i<narackaList.size();i++)
         {
             narackaList.get(i).orderedByUserName=(mainUserService.findById(narackaList.get(i).getOrderedByUserId()).orElse(null).getName());
+            narackaList.get(i).orderedByUserName+=" " +(mainUserService.findById(narackaList.get(i).getOrderedByUserId()).orElse(null).getSurname());
         }
-
 
         model.addAttribute("orders", narackaList);
         model.addAttribute("user", currentUser);

@@ -115,7 +115,7 @@
                                             <input style="text-align: center" name="kolicina" value="0" height="5px"  class="form-control" id="ex1" type="text">
 
                                         </div>
-                                        <div class="col-7">
+                                        <div  class="col-7">
                                             <button style="height: 50px; width: 100%" type="submit"
                                                     class="btn btn-sm btn-primary">
                                                 <i class="fa fa-trash">Edit</i>
@@ -126,7 +126,7 @@
                                 </div>
 
                                 </form>
-                                <button th:id="${naracka?.getId()}"  th:attr="onclick=|func('${naracka.getId()}')|"
+                                <button th:if="${naracka?.getStatus().name=='WAITING'}" th:id="${naracka?.getId()}"  th:attr="onclick=|func('${naracka.getId()}')|"
                                         class="btn btn-sm btn-info ">
                                     <i class="fa fa-trash">Edit</i>
                                 </button>

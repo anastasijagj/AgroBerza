@@ -7,6 +7,10 @@
 
                         <h3 class="mb-5">Sign in</h3>
 
+                        <div th:if="${error!=null}" class="form-outline mb-2">
+                        <b>  <h5 style="color: red" th:text="${error}"></h5></b>
+                        </div>
+
                         <form method="post" action="/login">
                             <div class="form-outline mb-2">
                                 <input name="username" type="text" id="typeEmailX-2" class="form-control form-control-lg" />

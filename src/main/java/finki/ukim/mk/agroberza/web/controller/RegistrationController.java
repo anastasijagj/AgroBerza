@@ -46,7 +46,7 @@ public class RegistrationController {
                            @RequestParam UserCategory userCategory) {
         // System.out.println(userCategory.toString());
         if (this.mainUserService.findUserByName(username).isPresent()) {
-            return "redirect:/register?error=The username already exists";
+            return "redirect:/register?error=The username already exists.";
         } else {
             this.registrationService.register(name, username, surname, password, userCategory,email,city,phone);
             return "redirect:/products";

@@ -110,6 +110,7 @@ public class OrderController {
         Product product= new Product(p.getId(),p.getName(), p.getPrice(), p.getQuantity()-order.quantity);
         product.img=p.getImg();
         product.description=p.description;
+        product.setOwnerId(p.getOwnerId());
         this.productService.edit(product);
         order.setStatus(Status.TRUE);
         this.orderService.editOrderById(id, order);
